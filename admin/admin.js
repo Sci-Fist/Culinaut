@@ -3,6 +3,25 @@ if (!localStorage.getItem('adminLoggedIn')) {
     window.location.href = 'login.html';
 }
 
+// Handle preloader and admin panel visibility
+function hidePreloader() {
+    const preloader = document.querySelector('.preloader');
+    if (preloader) {
+        preloader.style.opacity = '0';
+        setTimeout(() => {
+            preloader.style.display = 'none';
+            showAdminPanel();
+        }, 300);
+    }
+}
+
+function showAdminPanel() {
+    const adminPanel = document.querySelector('.admin-panel');
+    if (adminPanel) {
+        adminPanel.style.opacity = '1';
+    }
+}
+
 // Initialize TinyMCE
 tinymce.init({
     selector: '#post-content',
@@ -14,38 +33,20 @@ tinymce.init({
     content_css: 'dark',
     setup: function(editor) {
         editor.on('init', function() {
-            showAdminPanel();
+            hidePreloader();
         });
     }
 }).catch(error => {
     console.error('TinyMCE initialization failed:', error);
-    showAdminPanel(); // Show admin panel even if TinyMCE fails
+    hidePreloader(); // Show admin panel even if TinyMCE fails
 });
 
-// Handle preloader and admin panel visibility
-function hidePreloader() {
-    const preloader = document.querySelector('.preloader');
-    if (preloader) {
-        preloader.style.opacity = '0';
-        setTimeout(() => {
-            preloader.style.display = 'none';
-        }, 300);
-    }
-}
-
-function showAdminPanel() {
-    hidePreloader();
-    const adminPanel = document.querySelector('.admin-panel');
-    if (adminPanel) {
-        setTimeout(() => {
-            adminPanel.style.opacity = '1';
-        }, 100);
-    }
-}
-
 // Ensure preloader is hidden even if something goes wrong
+let preloaderTimeout = setTimeout(hidePreloader, 2000);
+
+// Clear the timeout if the page loads successfully
 window.addEventListener('load', () => {
-    setTimeout(hidePreloader, 2000); // Fallback timeout
+    clearTimeout(preloaderTimeout);
 });
 
 // Blog post management

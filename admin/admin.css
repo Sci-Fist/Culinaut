@@ -79,7 +79,7 @@ body {
 .admin-panel {
     background: var(--darker);
     min-height: 100vh;
-    opacity: 1;
+    opacity: 0;
     transition: opacity var(--transition-medium);
 }
 
@@ -339,4 +339,37 @@ body {
         width: 100%;
         justify-content: center;
     }
+} 
+
+/* Toast Messages */
+.toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    z-index: 1000;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all var(--transition-medium);
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.toast.success {
+    background: var(--primary-color);
+    color: var(--text-light);
+    border: 1px solid var(--primary-light);
+}
+
+.toast.error {
+    background: #e74c3c;
+    color: var(--text-light);
+    border: 1px solid #c0392b;
 } 
