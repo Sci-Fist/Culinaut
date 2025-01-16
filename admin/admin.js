@@ -3,23 +3,20 @@ if (!localStorage.getItem('adminLoggedIn')) {
     window.location.href = 'login.html';
 }
 
-// Simple function to hide preloader and show admin panel
-function initializeAdmin() {
-    // Hide preloader
-    const preloader = document.getElementById('preloader');
-    if (preloader) {
-        preloader.style.display = 'none';
-    }
+// Remove preloader and show admin panel immediately
+document.addEventListener('DOMContentLoaded', () => {
+    // Remove preloader immediately
+    document.getElementById('preloader')?.remove();
     
     // Show admin panel
     const adminPanel = document.querySelector('.admin-panel');
     if (adminPanel) {
-        adminPanel.style.opacity = '1';
+        adminPanel.style.removeProperty('opacity');
     }
-}
-
-// Initialize immediately
-initializeAdmin();
+    
+    // Initialize blog manager
+    window.blogManager = new BlogManager();
+});
 
 // Blog post management
 class BlogManager {
@@ -340,7 +337,4 @@ class BlogManager {
             setTimeout(() => toast.remove(), 300);
         }, 3000);
     }
-}
-
-// Initialize blog manager
-const blogManager = new BlogManager(); 
+} 

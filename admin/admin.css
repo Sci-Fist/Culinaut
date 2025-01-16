@@ -32,7 +32,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Preloader */
+/* Preloader - simplified */
 .preloader {
     position: fixed;
     top: 0;
@@ -44,9 +44,6 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 9999;
-    opacity: 1;
-    visibility: visible;
-    transition: opacity var(--transition-medium), visibility var(--transition-medium);
 }
 
 .preloader[style*="display: none"] {
@@ -81,12 +78,10 @@ body {
     animation: pulse 1.5s ease-in-out infinite;
 }
 
-/* Admin Panel Styles */
+/* Admin Panel - simplified */
 .admin-panel {
     background: var(--darker);
     min-height: 100vh;
-    opacity: 0;
-    transition: opacity var(--transition-medium);
 }
 
 .admin-header {
