@@ -1,3 +1,29 @@
+/* CSS Variables */
+:root {
+    --darker: #1a1a1a;
+    --primary-color: #7fb800;
+    --primary-light: #96d600;
+    --text-light: #ffffff;
+    --border-light: rgba(255, 255, 255, 0.1);
+    --glass-effect: rgba(255, 255, 255, 0.05);
+    --transition-medium: 0.3s ease;
+}
+
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--darker);
+    color: var(--text-light);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
 /* Admin Panel Styles */
 .admin-panel {
     background: var(--darker);
@@ -304,6 +330,7 @@
 }
 
 .loader circle {
+    stroke: currentColor;
     stroke-dasharray: 150;
     stroke-dashoffset: 75;
     animation: dash 1.5s ease-in-out infinite;
