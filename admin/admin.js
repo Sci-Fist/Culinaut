@@ -1,18 +1,20 @@
-// Check authentication and initialize immediately
-if (!localStorage.getItem('adminLoggedIn')) {
-    window.location.href = 'login.html';
-} else {
-    // Initialize blog manager when DOM is ready
-    document.addEventListener('DOMContentLoaded', () => {
-        try {
-            window.blogManager = new BlogManager();
-            console.log('Admin panel initialized successfully');
-        } catch (error) {
-            console.error('Failed to initialize admin panel:', error);
-            alert('Fehler beim Laden des Admin Panels. Bitte laden Sie die Seite neu.');
-        }
-    });
-}
+// Initialize immediately
+window.addEventListener('load', function() {
+    // Check authentication
+    if (!localStorage.getItem('adminLoggedIn')) {
+        window.location.href = 'login.html';
+        return;
+    }
+
+    // Initialize blog manager
+    try {
+        window.blogManager = new BlogManager();
+        console.log('Admin panel initialized successfully');
+    } catch (error) {
+        console.error('Failed to initialize admin panel:', error);
+        alert('Fehler beim Laden des Admin Panels. Bitte laden Sie die Seite neu.');
+    }
+});
 
 // Blog post management
 class BlogManager {
@@ -25,6 +27,17 @@ class BlogManager {
             'Ernährung',
             'Events'
         ];
+        
+        // Initialize TinyMCE configuration
+        window.tinymce_config = {
+            selector: '#post-content',
+            plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table code help wordcount',
+            toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+            height: 400,
+            language: 'de',
+            skin: 'oxide-dark',
+            content_css: 'dark'
+        };
         
         this.initializeEventListeners();
         this.loadPosts();
