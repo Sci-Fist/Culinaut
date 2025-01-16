@@ -5,7 +5,7 @@ if (!localStorage.getItem('adminLoggedIn')) {
 
 // Handle preloader and admin panel visibility
 function hidePreloader() {
-    const preloader = document.querySelector('.preloader');
+    const preloader = document.getElementById('preloader');
     if (preloader) {
         preloader.style.opacity = '0';
         setTimeout(() => {
@@ -22,31 +22,26 @@ function showAdminPanel() {
     }
 }
 
-// Initialize TinyMCE
-tinymce.init({
-    selector: '#post-content',
-    plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table code help wordcount',
-    toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
-    height: 400,
-    language: 'de',
-    skin: 'oxide-dark',
-    content_css: 'dark',
-    setup: function(editor) {
-        editor.on('init', function() {
-            hidePreloader();
-        });
-    }
-}).catch(error => {
-    console.error('TinyMCE initialization failed:', error);
-    hidePreloader(); // Show admin panel even if TinyMCE fails
-});
+// Initialize admin panel immediately
+document.addEventListener('DOMContentLoaded', () => {
+    // Start loading TinyMCE
+    tinymce.init({
+        selector: '#post-content',
+        plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table code help wordcount',
+        toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+        height: 400,
+        language: 'de',
+        skin: 'oxide-dark',
+        content_css: 'dark',
+    }).then(() => {
+        hidePreloader();
+    }).catch(error => {
+        console.error('TinyMCE initialization failed:', error);
+        hidePreloader();
+    });
 
-// Ensure preloader is hidden even if something goes wrong
-let preloaderTimeout = setTimeout(hidePreloader, 2000);
-
-// Clear the timeout if the page loads successfully
-window.addEventListener('load', () => {
-    clearTimeout(preloaderTimeout);
+    // Fallback: Hide preloader after 2 seconds if TinyMCE fails to load
+    setTimeout(hidePreloader, 2000);
 });
 
 // Blog post management
