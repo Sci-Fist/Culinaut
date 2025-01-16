@@ -466,3 +466,349 @@ section h2::after {
         margin: 1rem;
     }
 } 
+
+/* Menu Section */
+.menu-section {
+    background: var(--glass-effect);
+    padding: 8rem 2rem;
+}
+
+.season-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem 0;
+    color: var(--primary-light);
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+
+.menu-slider {
+    margin-top: 4rem;
+    padding: 2rem 0;
+}
+
+.menu-card {
+    background: var(--glass-effect);
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: var(--transition-medium);
+}
+
+.menu-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    border-color: var(--primary-light);
+}
+
+.menu-image {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+}
+
+.menu-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.menu-card:hover .menu-image img {
+    transform: scale(1.1);
+}
+
+.menu-badges {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.badge {
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.badge.seasonal {
+    background: var(--primary-color);
+    color: var(--text-light);
+}
+
+.badge.vegetarian {
+    background: var(--accent-green);
+    color: var(--text-dark);
+}
+
+.menu-content {
+    padding: 2rem;
+}
+
+.menu-content h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--text-light);
+}
+
+.menu-description {
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.menu-details {
+    display: flex;
+    gap: 2rem;
+    color: var(--primary-light);
+    font-size: 0.9rem;
+}
+
+.menu-details i {
+    margin-right: 0.5rem;
+}
+
+/* Sustainability Map */
+.sustainability-map {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    margin: 4rem 0;
+}
+
+.map-container {
+    height: 500px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--border-light);
+}
+
+.producer-list {
+    background: var(--glass-effect);
+    padding: 2rem;
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+}
+
+.producer-list h3 {
+    margin-bottom: 2rem;
+    color: var(--text-light);
+}
+
+.eco-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin: 4rem 0;
+}
+
+.stat-card {
+    background: var(--glass-effect);
+    padding: 2rem;
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    text-align: center;
+    transition: var(--transition-medium);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-light);
+}
+
+.stat-card i {
+    font-size: 2.5rem;
+    color: var(--primary-light);
+    margin-bottom: 1rem;
+}
+
+.stat-card h4 {
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+}
+
+.stat-card strong {
+    color: var(--primary-light);
+}
+
+/* Blog Section */
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 3rem;
+    margin-top: 4rem;
+}
+
+.blog-card {
+    background: var(--glass-effect);
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: var(--transition-medium);
+}
+
+.blog-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary-light);
+}
+
+.blog-image {
+    height: 250px;
+    overflow: hidden;
+}
+
+.blog-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.blog-card:hover .blog-image img {
+    transform: scale(1.1);
+}
+
+.blog-content {
+    padding: 2rem;
+}
+
+.blog-category {
+    color: var(--primary-light);
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+}
+
+.blog-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-light);
+}
+
+.read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary-light);
+    text-decoration: none;
+    margin-top: 1.5rem;
+    transition: var(--transition-fast);
+}
+
+.read-more:hover {
+    gap: 1rem;
+    color: var(--accent-green);
+}
+
+/* Booking Section */
+.booking-container {
+    max-width: 900px;
+    margin: 4rem auto;
+    background: var(--glass-effect);
+    padding: 3rem;
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+}
+
+.booking-options {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.booking-type {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem 2.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: var(--transition-medium);
+}
+
+.booking-type i {
+    font-size: 2rem;
+    color: var(--text-light);
+    transition: var(--transition-medium);
+}
+
+.booking-type span {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.booking-type:hover, .booking-type.active {
+    background: var(--primary-color);
+    border-color: var(--primary-light);
+}
+
+.booking-type:hover i, .booking-type.active i {
+    color: var(--primary-light);
+    transform: scale(1.1);
+}
+
+.booking-calendar {
+    margin: 3rem 0;
+    min-height: 400px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-light);
+    border-radius: 4px;
+}
+
+/* Swiper Customization */
+.swiper-button-next,
+.swiper-button-prev {
+    color: var(--primary-light);
+}
+
+.swiper-pagination-bullet {
+    background: var(--primary-light);
+}
+
+.swiper-pagination-bullet-active {
+    background: var(--primary-color);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .sustainability-map {
+        grid-template-columns: 1fr;
+    }
+    
+    .map-container {
+        height: 400px;
+    }
+    
+    .eco-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .booking-options {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .eco-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .menu-details {
+        flex-direction: column;
+        gap: 1rem;
+    }
+} 

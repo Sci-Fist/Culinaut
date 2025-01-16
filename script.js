@@ -155,4 +155,165 @@ window.addEventListener('scroll', () => {
         const scroll = window.pageYOffset;
         hero.style.backgroundPositionY = `${scroll * 0.5}px`;
     }
-}); 
+});
+
+// Initialize Swiper for menu slider
+const menuSlider = new Swiper('.menu-slider', {
+    slidesPerView: 1,
+    spaceBetween: 30,
+    loop: true,
+    centeredSlides: true,
+    autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+    },
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+    },
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
+    breakpoints: {
+        768: {
+            slidesPerView: 2,
+        },
+        1024: {
+            slidesPerView: 3,
+        }
+    }
+});
+
+// Initialize Leaflet map for sustainability section
+const map = L.map('sustainability-map').setView([51.1657, 10.4515], 6);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+}).addTo(map);
+
+// Add markers for local producers
+const producers = [
+    { lat: 51.1657, lng: 10.4515, name: 'Bio-Hof Schmidt', type: 'Gemüse & Obst' },
+    { lat: 51.2, lng: 10.5, name: 'Landwirtschaft Meyer', type: 'Getreide' },
+    // Add more producers as needed
+];
+
+producers.forEach(producer => {
+    const marker = L.marker([producer.lat, producer.lng]).addTo(map);
+    marker.bindPopup(`
+        <strong>${producer.name}</strong><br>
+        ${producer.type}
+    `);
+});
+
+// Booking system functionality
+const bookingTypes = document.querySelectorAll('.booking-type');
+const bookingCalendar = document.querySelector('.booking-calendar');
+
+// Initialize Flatpickr calendar
+const calendar = flatpickr(bookingCalendar, {
+    inline: true,
+    minDate: 'today',
+    dateFormat: 'Y-m-d',
+    locale: 'de',
+    disable: [
+        function(date) {
+            // Disable Sundays and past dates
+            return (date.getDay() === 0);
+        }
+    ],
+    onChange: function(selectedDates, dateStr) {
+        updateBookingForm(dateStr);
+    }
+});
+
+// Booking type selection
+bookingTypes.forEach(type => {
+    type.addEventListener('click', () => {
+        // Remove active class from all types
+        bookingTypes.forEach(t => t.classList.remove('active'));
+        // Add active class to selected type
+        type.classList.add('active');
+        // Update available time slots based on type
+        updateTimeSlots(type.dataset.type);
+    });
+});
+
+function updateTimeSlots(bookingType) {
+    const timeSlots = {
+        'private-dining': ['18:00', '19:00', '20:00'],
+        'workshop': ['10:00', '14:00', '17:00'],
+        'consulting': ['09:00', '11:00', '15:00']
+    };
+    
+    const timeSlotsContainer = document.querySelector('.time-slots');
+    if (timeSlotsContainer && timeSlots[bookingType]) {
+        timeSlotsContainer.innerHTML = timeSlots[bookingType]
+            .map(time => `
+                <button class="time-slot" data-time="${time}">
+                    ${time} Uhr
+                </button>
+            `).join('');
+    }
+}
+
+function updateBookingForm(selectedDate) {
+    const selectedDateDisplay = document.querySelector('.selected-date');
+    if (selectedDateDisplay) {
+        selectedDateDisplay.textContent = new Date(selectedDate)
+            .toLocaleDateString('de-DE', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+    }
+}
+
+// Blog interaction enhancements
+document.querySelectorAll('.blog-card').forEach(card => {
+    card.addEventListener('click', function() {
+        const blogId = this.dataset.blogId;
+        // Smooth transition to blog detail view
+        this.style.transform = 'scale(0.98)';
+        setTimeout(() => {
+            this.style.transform = 'scale(1)';
+            // Navigate to blog detail page if implemented
+            // window.location.href = `/blog/${blogId}`;
+        }, 200);
+    });
+});
+
+// Eco-stats animation
+const ecoStats = document.querySelectorAll('.stat-card');
+const animateValue = (element, start, end, duration) => {
+    const range = end - start;
+    const increment = range / (duration / 16);
+    let current = start;
+    
+    const updateValue = () => {
+        current += increment;
+        if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
+            element.textContent = Math.round(end);
+            return;
+        }
+        element.textContent = Math.round(current);
+        requestAnimationFrame(updateValue);
+    };
+    
+    requestAnimationFrame(updateValue);
+};
+
+// Animate eco-stats when they come into view
+const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const statValue = entry.target.querySelector('strong');
+            const endValue = parseInt(statValue.dataset.value);
+            animateValue(statValue, 0, endValue, 2000);
+            statsObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.5 });
+
+ecoStats.forEach(stat => statsObserver.observe(stat)); 

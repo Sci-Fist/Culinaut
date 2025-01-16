@@ -3,21 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kulinarische Kunst & Nachhaltigkeit | Private Chef Service</title>
+    <title>Nachhaltige Kulinarik | Private Chef & Ernährungsberatung</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
 </head>
 <body>
     <header>
         <nav>
             <ul>
                 <li><a href="#home">Start</a></li>
+                <li><a href="#menu">Menü</a></li>
                 <li><a href="#philosophy">Philosophie</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#specialties">Spezialitäten</a></li>
                 <li><a href="#sustainability">Nachhaltigkeit</a></li>
-                <li><a href="#experience">Expertise</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#booking">Buchung</a></li>
                 <li><a href="#contact">Kontakt</a></li>
             </ul>
         </nav>
@@ -29,9 +35,48 @@
                 <h1>Nachhaltige Kulinarische Exzellenz</h1>
                 <p class="tagline">Wo Gastronomie auf Nachhaltigkeit trifft – Private Chef Service mit ökologischem Bewusstsein</p>
                 <div class="cta-buttons">
-                    <a href="#contact" class="cta-primary">Beratungsgespräch vereinbaren</a>
-                    <a href="#services" class="cta-secondary">Services entdecken</a>
+                    <a href="#booking" class="cta-primary">Termin vereinbaren</a>
+                    <a href="#menu" class="cta-secondary">Aktuelle Menüs</a>
                 </div>
+            </div>
+        </section>
+
+        <section id="menu" class="menu-section" data-aos="fade-up">
+            <h2>Saisonale Kreationen</h2>
+            <div class="season-indicator">
+                <i class="fas fa-leaf"></i>
+                <span>Aktuelle Herbstmenüs</span>
+            </div>
+            
+            <div class="menu-slider swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide menu-card">
+                        <div class="menu-image">
+                            <img src="https://source.unsplash.com/800x600/?seasonal,food" alt="Saisonales Gericht">
+                            <div class="menu-badges">
+                                <span class="badge seasonal">Saisonal</span>
+                                <span class="badge vegetarian">Vegetarisch</span>
+                            </div>
+                        </div>
+                        <div class="menu-content">
+                            <h3>Herbstliche Komposition</h3>
+                            <p class="menu-description">Kürbis-Variation mit Waldpilzen und Kräutern aus eigenem Anbau</p>
+                            <div class="menu-details">
+                                <div class="origin">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Regionale Zutaten</span>
+                                </div>
+                                <div class="eco-score">
+                                    <i class="fas fa-seedling"></i>
+                                    <span>CO₂-Neutral</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
             </div>
         </section>
 
@@ -56,89 +101,102 @@
             </div>
         </section>
 
-        <section id="services" data-aos="fade-up">
-            <h2>Individuelle Serviceleistungen</h2>
-            <div class="services-grid">
-                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-                    <i class="fas fa-utensils"></i>
-                    <h3>Private Chef Experience</h3>
-                    <p>Exklusive Dining-Erlebnisse bei Ihnen zu Hause mit Fokus auf Nachhaltigkeit</p>
-                </div>
-                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-                    <i class="fas fa-glass-cheers"></i>
-                    <h3>Event Catering</h3>
-                    <p>Nachhaltige Konzepte für Ihre besonderen Anlässe</p>
-                </div>
-                <div class="service-card" data-aos="fade-up" data-aos-delay="300">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                    <h3>Kochkurse</h3>
-                    <p>Lernen Sie die Kunst der nachhaltigen Küche</p>
-                </div>
-                <div class="service-card" data-aos="fade-up" data-aos-delay="400">
-                    <i class="fas fa-calendar-alt"></i>
-                    <h3>Ernährungsberatung</h3>
-                    <p>Wissenschaftlich fundierte Ernährungskonzepte</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="specialties" data-aos="fade-up">
-            <h2>Kulinarische Spezialitäten</h2>
-            <div class="specialties-showcase">
-                <div class="specialty" data-aos="fade-right">
-                    <h3>Modern Deutsche Küche</h3>
-                    <p>Regionale Klassiker neu interpretiert</p>
-                </div>
-                <div class="specialty" data-aos="fade-up">
-                    <h3>Plant-Based Creation</h3>
-                    <p>Innovative pflanzliche Gerichte</p>
-                </div>
-                <div class="specialty" data-aos="fade-left">
-                    <h3>Farm-to-Table</h3>
-                    <p>Saisonale Menüs mit lokalen Bio-Produkten</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="sustainability" data-aos="fade-up">
+        <section id="sustainability" class="sustainability-section" data-aos="fade-up">
             <h2>Nachhaltiges Konzept</h2>
-            <div class="sustainability-grid">
-                <div class="sustainability-item" data-aos="fade-right">
-                    <i class="fas fa-leaf"></i>
-                    <h3>Regionale Partnerschaften</h3>
-                    <p>Zusammenarbeit mit lokalen Bio-Bauern und nachhaltigen Produzenten</p>
+            
+            <div class="sustainability-map">
+                <div id="producer-map" class="map-container">
+                    <!-- Karte wird per JavaScript geladen -->
                 </div>
-                <div class="sustainability-item" data-aos="fade-up">
+                <div class="producer-list">
+                    <h3>Unsere lokalen Partner</h3>
+                    <div class="producer-items">
+                        <!-- Partner-Liste -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="eco-stats">
+                <div class="stat-card">
+                    <i class="fas fa-bicycle"></i>
+                    <h4>Transportwege</h4>
+                    <p>Durchschnittlich <strong>12 km</strong></p>
+                </div>
+                <div class="stat-card">
                     <i class="fas fa-recycle"></i>
-                    <h3>Zero-Waste Konzept</h3>
-                    <p>Minimierung von Lebensmittelabfällen durch kreative Verwertung</p>
+                    <h4>Abfallreduzierung</h4>
+                    <p><strong>95%</strong> Verwertung</p>
                 </div>
-                <div class="sustainability-item" data-aos="fade-left">
-                    <i class="fas fa-carrot"></i>
-                    <h3>Saisonale Küche</h3>
-                    <p>Ausschließliche Verwendung saisonaler Produkte</p>
+                <div class="stat-card">
+                    <i class="fas fa-leaf"></i>
+                    <h4>Bio-Anteil</h4>
+                    <p><strong>100%</strong> zertifiziert</p>
+                </div>
+            </div>
+
+            <div class="season-calendar">
+                <h3>Saisonkalender</h3>
+                <div class="calendar-slider">
+                    <!-- Saisonkalender wird per JavaScript geladen -->
                 </div>
             </div>
         </section>
 
-        <section id="experience" data-aos="fade-up">
-            <h2>Expertise & Werdegang</h2>
-            <div class="experience-timeline">
-                <div class="experience-item" data-aos="fade-right">
-                    <h3>Bachelor in Ökotrophologie</h3>
-                    <p class="location">Schwerpunkt Nachhaltigkeit</p>
-                    <p>Wissenschaftliche Expertise in nachhaltiger Ernährung</p>
+        <section id="blog" class="blog-section" data-aos="fade-up">
+            <h2>Expertenwissen & Tipps</h2>
+            <div class="blog-grid">
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="https://source.unsplash.com/800x600/?cooking,sustainable" alt="Blog Beitrag">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-category">Nachhaltigkeit</div>
+                        <h3>Saisonal kochen im Herbst</h3>
+                        <p>Entdecken Sie die besten Techniken für nachhaltige Herbstgerichte...</p>
+                        <a href="#" class="read-more">Weiterlesen <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                <!-- Weitere Blog-Karten -->
+            </div>
+        </section>
+
+        <section id="booking" class="booking-section" data-aos="fade-up">
+            <h2>Termin vereinbaren</h2>
+            <div class="booking-container">
+                <div class="booking-options">
+                    <div class="booking-type active" data-type="private-dining">
+                        <i class="fas fa-utensils"></i>
+                        <span>Private Dining</span>
+                    </div>
+                    <div class="booking-type" data-type="workshop">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>Workshop</span>
+                    </div>
+                    <div class="booking-type" data-type="consulting">
+                        <i class="fas fa-comments"></i>
+                        <span>Beratung</span>
+                    </div>
                 </div>
-                <div class="experience-item" data-aos="fade-left">
-                    <h3>Küchenchef</h3>
-                    <p class="location">Bio-Restaurant "Grüne Tafel"</p>
-                    <p>Entwicklung nachhaltiger Menükonzepte</p>
+                
+                <div class="booking-calendar">
+                    <!-- Kalender wird per JavaScript geladen -->
                 </div>
-                <div class="experience-item" data-aos="fade-right">
-                    <h3>Weiterbildung</h3>
-                    <p class="location">Zertifizierung Nachhaltige Gastronomie</p>
-                    <p>Spezialisierung auf ressourcenschonende Küche</p>
-                </div>
+
+                <form class="booking-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Ihr Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Ihre E-Mail" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" placeholder="Telefon" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Ihre Wünsche und Anmerkungen" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Anfrage senden</button>
+                </form>
             </div>
         </section>
 
@@ -184,6 +242,12 @@
     </footer>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/de.js"></script>
     <script src="script.js"></script>
 </body>
 </html> 
