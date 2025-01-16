@@ -3,53 +3,23 @@ if (!localStorage.getItem('adminLoggedIn')) {
     window.location.href = 'login.html';
 }
 
-// Initialize admin panel immediately
-document.addEventListener('DOMContentLoaded', () => {
-    // Show admin panel immediately
-    hidePreloader();
-    
-    // Initialize TinyMCE only when needed (when creating/editing posts)
-    document.querySelectorAll('nav a').forEach(link => {
-        link.addEventListener('click', (e) => {
-            const view = e.target.closest('a')?.dataset.view;
-            if (view === 'new' && !window.tinymceInitialized) {
-                initializeTinyMCE();
-            }
-        });
-    });
-});
-
-function hidePreloader() {
+// Simple function to hide preloader and show admin panel
+function initializeAdmin() {
+    // Hide preloader
     const preloader = document.getElementById('preloader');
-    const adminPanel = document.querySelector('.admin-panel');
-    
     if (preloader) {
-        preloader.style.opacity = '0';
-        setTimeout(() => {
-            preloader.style.display = 'none';
-            if (adminPanel) {
-                adminPanel.style.opacity = '1';
-            }
-        }, 300);
+        preloader.style.display = 'none';
+    }
+    
+    // Show admin panel
+    const adminPanel = document.querySelector('.admin-panel');
+    if (adminPanel) {
+        adminPanel.style.opacity = '1';
     }
 }
 
-function initializeTinyMCE() {
-    tinymce.init({
-        selector: '#post-content',
-        plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table code help wordcount',
-        toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
-        height: 400,
-        language: 'de',
-        skin: 'oxide-dark',
-        content_css: 'dark',
-    }).then(() => {
-        window.tinymceInitialized = true;
-    }).catch(error => {
-        console.error('TinyMCE initialization failed:', error);
-        showError('Editor konnte nicht geladen werden. Bitte laden Sie die Seite neu.');
-    });
-}
+// Initialize immediately
+initializeAdmin();
 
 // Blog post management
 class BlogManager {
@@ -66,6 +36,11 @@ class BlogManager {
         this.loadPosts();
         this.loadCategories();
         this.setupImageUpload();
+        
+        // Initialize TinyMCE if we're on the new post view
+        if (!document.getElementById('new-view').classList.contains('hidden')) {
+            this.initializeTinyMCE();
+        }
     }
     
     initializeEventListeners() {
@@ -76,6 +51,10 @@ class BlogManager {
                 const view = e.target.closest('a').dataset.view;
                 if (view) {
                     this.showView(view);
+                    // Initialize TinyMCE when switching to new post view
+                    if (view === 'new' && !window.tinymceInitialized) {
+                        this.initializeTinyMCE();
+                    }
                 } else if (e.target.closest('#logout')) {
                     this.handleLogout();
                 }
@@ -92,6 +71,19 @@ class BlogManager {
             e.preventDefault();
             this.addCategory();
         });
+    }
+    
+    initializeTinyMCE() {
+        if (window.tinymce_config && !window.tinymceInitialized) {
+            tinymce.init(window.tinymce_config)
+                .then(() => {
+                    window.tinymceInitialized = true;
+                })
+                .catch(error => {
+                    console.error('TinyMCE initialization failed:', error);
+                    this.showError('Editor konnte nicht geladen werden. Bitte laden Sie die Seite neu.');
+                });
+        }
     }
     
     setupImageUpload() {

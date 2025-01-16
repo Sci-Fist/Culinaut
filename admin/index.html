@@ -16,6 +16,18 @@
     <link rel="preload" href="admin.js" as="script">
     
     <!-- TinyMCE -->
+    <script>
+        // Initialize TinyMCE configuration
+        window.tinymce_config = {
+            selector: '#post-content',
+            plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table code help wordcount',
+            toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+            height: 400,
+            language: 'de',
+            skin: 'oxide-dark',
+            content_css: 'dark'
+        };
+    </script>
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 </head>
 <body>
