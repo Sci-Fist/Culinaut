@@ -1,22 +1,14 @@
-// Check authentication
-if (!localStorage.getItem('adminLoggedIn')) {
-    window.location.href = 'login.html';
-}
-
-// Remove preloader and show admin panel immediately
-document.addEventListener('DOMContentLoaded', () => {
-    // Remove preloader immediately
-    document.getElementById('preloader')?.remove();
-    
-    // Show admin panel
-    const adminPanel = document.querySelector('.admin-panel');
-    if (adminPanel) {
-        adminPanel.style.removeProperty('opacity');
+// Check authentication and initialize immediately
+(function() {
+    // Check authentication
+    if (!localStorage.getItem('adminLoggedIn')) {
+        window.location.href = 'login.html';
+        return;
     }
-    
+
     // Initialize blog manager
     window.blogManager = new BlogManager();
-});
+})();
 
 // Blog post management
 class BlogManager {
@@ -33,11 +25,6 @@ class BlogManager {
         this.loadPosts();
         this.loadCategories();
         this.setupImageUpload();
-        
-        // Initialize TinyMCE if we're on the new post view
-        if (!document.getElementById('new-view').classList.contains('hidden')) {
-            this.initializeTinyMCE();
-        }
     }
     
     initializeEventListeners() {

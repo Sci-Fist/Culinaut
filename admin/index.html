@@ -11,9 +11,8 @@
     <link rel="stylesheet" href="admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Preload critical resources -->
-    <link rel="preload" href="admin.css" as="style">
-    <link rel="preload" href="admin.js" as="script">
+    <!-- Scripts -->
+    <script src="admin.js"></script>
     
     <!-- TinyMCE -->
     <script>
@@ -31,18 +30,8 @@
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 </head>
 <body>
-    <!-- Preloader -->
-    <div class="preloader" id="preloader">
-        <div class="loader">
-            <svg viewBox="0 0 50 50">
-                <circle cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
-            </svg>
-            <span>Admin Panel wird geladen...</span>
-        </div>
-    </div>
-
     <!-- Admin Panel -->
-    <div class="admin-panel">
+    <div class="admin-panel" style="opacity: 1">
         <header class="admin-header">
             <nav>
                 <div class="admin-logo">
@@ -134,8 +123,5 @@
             </div>
         </main>
     </div>
-
-    <!-- Scripts -->
-    <script src="admin.js" defer></script>
 </body>
 </html> 
