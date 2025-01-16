@@ -3,28 +3,38 @@ if (!localStorage.getItem('adminLoggedIn')) {
     window.location.href = 'login.html';
 }
 
-// Handle preloader and admin panel visibility
+// Initialize admin panel immediately
+document.addEventListener('DOMContentLoaded', () => {
+    // Show admin panel immediately
+    hidePreloader();
+    
+    // Initialize TinyMCE only when needed (when creating/editing posts)
+    document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            const view = e.target.closest('a')?.dataset.view;
+            if (view === 'new' && !window.tinymceInitialized) {
+                initializeTinyMCE();
+            }
+        });
+    });
+});
+
 function hidePreloader() {
     const preloader = document.getElementById('preloader');
+    const adminPanel = document.querySelector('.admin-panel');
+    
     if (preloader) {
         preloader.style.opacity = '0';
         setTimeout(() => {
             preloader.style.display = 'none';
-            showAdminPanel();
+            if (adminPanel) {
+                adminPanel.style.opacity = '1';
+            }
         }, 300);
     }
 }
 
-function showAdminPanel() {
-    const adminPanel = document.querySelector('.admin-panel');
-    if (adminPanel) {
-        adminPanel.style.opacity = '1';
-    }
-}
-
-// Initialize admin panel immediately
-document.addEventListener('DOMContentLoaded', () => {
-    // Start loading TinyMCE
+function initializeTinyMCE() {
     tinymce.init({
         selector: '#post-content',
         plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table code help wordcount',
@@ -34,15 +44,12 @@ document.addEventListener('DOMContentLoaded', () => {
         skin: 'oxide-dark',
         content_css: 'dark',
     }).then(() => {
-        hidePreloader();
+        window.tinymceInitialized = true;
     }).catch(error => {
         console.error('TinyMCE initialization failed:', error);
-        hidePreloader();
+        showError('Editor konnte nicht geladen werden. Bitte laden Sie die Seite neu.');
     });
-
-    // Fallback: Hide preloader after 2 seconds if TinyMCE fails to load
-    setTimeout(hidePreloader, 2000);
-});
+}
 
 // Blog post management
 class BlogManager {
