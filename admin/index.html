@@ -11,27 +11,15 @@
     <link rel="stylesheet" href="admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Scripts -->
-    <script src="admin.js"></script>
-    
     <!-- TinyMCE -->
-    <script>
-        // Initialize TinyMCE configuration
-        window.tinymce_config = {
-            selector: '#post-content',
-            plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table code help wordcount',
-            toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
-            height: 400,
-            language: 'de',
-            skin: 'oxide-dark',
-            content_css: 'dark'
-        };
-    </script>
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    
+    <!-- Admin Scripts -->
+    <script src="admin.js"></script>
 </head>
 <body>
     <!-- Admin Panel -->
-    <div class="admin-panel" style="opacity: 1">
+    <div class="admin-panel">
         <header class="admin-header">
             <nav>
                 <div class="admin-logo">

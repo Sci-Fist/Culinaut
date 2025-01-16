@@ -1,18 +1,23 @@
 // Check authentication and initialize immediately
-(function() {
-    // Check authentication
-    if (!localStorage.getItem('adminLoggedIn')) {
-        window.location.href = 'login.html';
-        return;
-    }
-
-    // Initialize blog manager
-    window.blogManager = new BlogManager();
-})();
+if (!localStorage.getItem('adminLoggedIn')) {
+    window.location.href = 'login.html';
+} else {
+    // Initialize blog manager when DOM is ready
+    document.addEventListener('DOMContentLoaded', () => {
+        try {
+            window.blogManager = new BlogManager();
+            console.log('Admin panel initialized successfully');
+        } catch (error) {
+            console.error('Failed to initialize admin panel:', error);
+            alert('Fehler beim Laden des Admin Panels. Bitte laden Sie die Seite neu.');
+        }
+    });
+}
 
 // Blog post management
 class BlogManager {
     constructor() {
+        console.log('Initializing BlogManager');
         this.posts = JSON.parse(localStorage.getItem('blogPosts')) || [];
         this.categories = JSON.parse(localStorage.getItem('blogCategories')) || [
             'Nachhaltigkeit',
