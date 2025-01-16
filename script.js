@@ -1,9 +1,18 @@
-// Initialize AOS with slower animations
-AOS.init({
-    duration: 1200,
-    easing: 'ease-out',
-    once: true,
-    offset: 100
+// Wait for all content to load before removing preloader
+window.addEventListener('load', () => {
+    // Initialize AOS
+    AOS.init({
+        duration: 1200,
+        easing: 'ease-out',
+        once: true,
+        offset: 100
+    });
+
+    // Hide preloader after a small delay to ensure smooth transition
+    setTimeout(() => {
+        const preloader = document.querySelector('.preloader');
+        preloader.classList.add('fade-out');
+    }, 500);
 });
 
 // Smooth scroll handling with elegant easing
