@@ -318,22 +318,6 @@ const statsObserver = new IntersectionObserver((entries) => {
 
 ecoStats.forEach(stat => statsObserver.observe(stat));
 
-// Preloader
-window.addEventListener('load', () => {
-    const preloader = document.querySelector('.preloader');
-    preloader.classList.add('fade-out');
-    
-    // Initialize AOS after preloader
-    setTimeout(() => {
-        AOS.init({
-            duration: 1200,
-            easing: 'ease-out',
-            once: true,
-            offset: 100
-        });
-    }, 500);
-});
-
 // Scroll Progress Indicator
 const scrollProgress = document.querySelector('.scroll-progress');
 window.addEventListener('scroll', () => {
