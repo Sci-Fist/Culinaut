@@ -3,6 +3,20 @@ if (!localStorage.getItem('adminLoggedIn')) {
     window.location.href = 'login.html';
 }
 
+// Handle preloader
+document.addEventListener('DOMContentLoaded', () => {
+    const preloader = document.querySelector('.preloader');
+    if (preloader) {
+        setTimeout(() => {
+            preloader.style.opacity = '0';
+            setTimeout(() => {
+                preloader.style.display = 'none';
+                document.body.style.overflow = 'visible';
+            }, 300);
+        }, 500);
+    }
+});
+
 // Initialize TinyMCE
 tinymce.init({
     selector: '#post-content',
@@ -11,7 +25,20 @@ tinymce.init({
     height: 400,
     language: 'de',
     skin: 'oxide-dark',
-    content_css: 'dark'
+    content_css: 'dark',
+    setup: function(editor) {
+        editor.on('init', function() {
+            // Hide preloader after TinyMCE is fully loaded
+            const preloader = document.querySelector('.preloader');
+            if (preloader) {
+                preloader.style.opacity = '0';
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                    document.body.style.overflow = 'visible';
+                }, 300);
+            }
+        });
+    }
 });
 
 // Blog post management
