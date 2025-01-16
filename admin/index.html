@@ -3,14 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Admin Panel für Nachhaltige Kulinarik">
+    <meta name="theme-color" content="#1a1a1a">
     <title>Admin Panel | Nachhaltige Kulinarik</title>
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="admin.css" as="style">
+    <link rel="preload" href="admin.js" as="script">
+    
+    <!-- TinyMCE -->
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 </head>
 <body>
     <!-- Preloader -->
-    <div class="preloader">
+    <div class="preloader" id="preloader">
         <div class="loader">
             <svg viewBox="0 0 50 50">
                 <circle cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
@@ -20,15 +30,18 @@
     </div>
 
     <!-- Admin Panel -->
-    <div class="admin-panel">
+    <div class="admin-panel" style="opacity: 0; transition: opacity 0.3s ease-out;">
         <header class="admin-header">
             <nav>
-                <div class="admin-logo">Admin Panel</div>
+                <div class="admin-logo">
+                    <i class="fas fa-leaf"></i>
+                    Admin Panel
+                </div>
                 <ul>
-                    <li><a href="#" data-view="posts" class="active">Beiträge</a></li>
-                    <li><a href="#" data-view="new">Neuer Beitrag</a></li>
-                    <li><a href="#" data-view="categories">Kategorien</a></li>
-                    <li><a href="#" id="logout">Abmelden</a></li>
+                    <li><a href="#" data-view="posts" class="active"><i class="fas fa-list"></i> Beiträge</a></li>
+                    <li><a href="#" data-view="new"><i class="fas fa-plus"></i> Neuer Beitrag</a></li>
+                    <li><a href="#" data-view="categories"><i class="fas fa-tags"></i> Kategorien</a></li>
+                    <li><a href="#" id="logout"><i class="fas fa-sign-out-alt"></i> Abmelden</a></li>
                 </ul>
             </nav>
         </header>
@@ -36,49 +49,73 @@
         <main class="admin-main">
             <!-- Posts View -->
             <div id="posts-view" class="admin-view">
-                <h2>Beiträge</h2>
+                <h2><i class="fas fa-list"></i> Beiträge</h2>
                 <div class="posts-grid"></div>
             </div>
 
             <!-- New Post View -->
             <div id="new-view" class="admin-view hidden">
-                <h2>Neuer Beitrag</h2>
+                <h2><i class="fas fa-plus"></i> Neuer Beitrag</h2>
                 <form id="new-post-form" class="post-form">
                     <div class="form-group">
-                        <label for="post-title">Titel</label>
-                        <input type="text" id="post-title" required>
+                        <label for="post-title">
+                            <i class="fas fa-heading"></i> Titel
+                        </label>
+                        <input type="text" id="post-title" required placeholder="Geben Sie einen aussagekräftigen Titel ein">
                     </div>
                     <div class="form-group">
-                        <label for="post-category">Kategorie</label>
-                        <select id="post-category" required></select>
+                        <label for="post-category">
+                            <i class="fas fa-folder"></i> Kategorie
+                        </label>
+                        <select id="post-category" required>
+                            <option value="">Bitte wählen Sie eine Kategorie</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="post-content">Inhalt</label>
+                        <label for="post-content">
+                            <i class="fas fa-pen"></i> Inhalt
+                        </label>
                         <textarea id="post-content"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="post-tags">Tags (mit Komma getrennt)</label>
-                        <input type="text" id="post-tags">
+                        <label for="post-tags">
+                            <i class="fas fa-tags"></i> Tags
+                        </label>
+                        <input type="text" id="post-tags" placeholder="Tags mit Komma trennen, z.B.: Nachhaltigkeit, Bio, Regional">
                     </div>
                     <div class="form-group">
-                        <label for="post-image">Bild</label>
-                        <input type="file" id="post-image" accept="image/*">
+                        <label for="post-image">
+                            <i class="fas fa-image"></i> Bild
+                        </label>
+                        <div class="file-upload">
+                            <input type="file" id="post-image" accept="image/*">
+                            <label for="post-image" class="file-upload-label">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                Bild auswählen oder hierher ziehen
+                            </label>
+                        </div>
                         <div class="image-preview"></div>
                     </div>
-                    <button type="submit" class="submit-btn">Beitrag speichern</button>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-save"></i> Beitrag speichern
+                    </button>
                 </form>
             </div>
 
             <!-- Categories View -->
             <div id="categories-view" class="admin-view hidden">
-                <h2>Kategorien verwalten</h2>
+                <h2><i class="fas fa-tags"></i> Kategorien verwalten</h2>
                 <div class="categories-management">
                     <form id="new-category-form">
                         <div class="form-group">
-                            <label for="category-name">Neue Kategorie</label>
-                            <input type="text" id="category-name" required>
+                            <label for="category-name">
+                                <i class="fas fa-folder-plus"></i> Neue Kategorie
+                            </label>
+                            <input type="text" id="category-name" required placeholder="Name der neuen Kategorie">
                         </div>
-                        <button type="submit" class="submit-btn">Kategorie hinzufügen</button>
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-plus"></i> Kategorie hinzufügen
+                        </button>
                     </form>
                     <div class="categories-list"></div>
                 </div>
@@ -86,6 +123,7 @@
         </main>
     </div>
 
-    <script src="admin.js"></script>
+    <!-- Scripts -->
+    <script src="admin.js" defer></script>
 </body>
 </html> 

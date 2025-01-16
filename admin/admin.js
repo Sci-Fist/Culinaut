@@ -11,30 +11,42 @@ tinymce.init({
     height: 400,
     language: 'de',
     skin: 'oxide-dark',
-    content_css: 'dark'
-}).then(() => {
-    // Hide preloader after TinyMCE is loaded
-    hidePreloader();
-}).catch(() => {
-    // Hide preloader even if TinyMCE fails
-    hidePreloader();
+    content_css: 'dark',
+    setup: function(editor) {
+        editor.on('init', function() {
+            showAdminPanel();
+        });
+    }
+}).catch(error => {
+    console.error('TinyMCE initialization failed:', error);
+    showAdminPanel(); // Show admin panel even if TinyMCE fails
 });
 
-// Handle preloader
+// Handle preloader and admin panel visibility
 function hidePreloader() {
     const preloader = document.querySelector('.preloader');
     if (preloader) {
         preloader.style.opacity = '0';
         setTimeout(() => {
             preloader.style.display = 'none';
-            document.body.style.overflow = 'visible';
         }, 300);
     }
 }
 
+function showAdminPanel() {
+    hidePreloader();
+    const adminPanel = document.querySelector('.admin-panel');
+    if (adminPanel) {
+        setTimeout(() => {
+            adminPanel.style.opacity = '1';
+        }, 100);
+    }
+}
+
 // Ensure preloader is hidden even if something goes wrong
-window.addEventListener('load', hidePreloader);
-setTimeout(hidePreloader, 2000); // Fallback timeout
+window.addEventListener('load', () => {
+    setTimeout(hidePreloader, 2000); // Fallback timeout
+});
 
 // Blog post management
 class BlogManager {
@@ -50,6 +62,7 @@ class BlogManager {
         this.initializeEventListeners();
         this.loadPosts();
         this.loadCategories();
+        this.setupImageUpload();
     }
     
     initializeEventListeners() {
@@ -57,22 +70,77 @@ class BlogManager {
         document.querySelectorAll('nav a').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
-                const view = e.target.dataset.view;
-                this.showView(view);
+                const view = e.target.closest('a').dataset.view;
+                if (view) {
+                    this.showView(view);
+                } else if (e.target.closest('#logout')) {
+                    this.handleLogout();
+                }
             });
         });
         
-        // New post form
+        // Forms
         document.getElementById('new-post-form')?.addEventListener('submit', (e) => {
             e.preventDefault();
             this.savePost();
         });
         
-        // Category form
         document.getElementById('new-category-form')?.addEventListener('submit', (e) => {
             e.preventDefault();
             this.addCategory();
         });
+    }
+    
+    setupImageUpload() {
+        const fileInput = document.getElementById('post-image');
+        const preview = document.querySelector('.image-preview');
+        const uploadLabel = document.querySelector('.file-upload-label');
+        
+        if (fileInput && preview) {
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    if (file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+                        };
+                        reader.readAsDataURL(file);
+                    } else {
+                        this.showError('Bitte wählen Sie eine gültige Bilddatei aus.');
+                    }
+                }
+            });
+            
+            // Drag and drop support
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                uploadLabel?.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                });
+            });
+            
+            uploadLabel?.addEventListener('dragover', () => {
+                uploadLabel.style.borderColor = 'var(--primary-light)';
+                uploadLabel.style.background = 'var(--glass-effect-hover)';
+            });
+            
+            uploadLabel?.addEventListener('dragleave', () => {
+                uploadLabel.style.borderColor = '';
+                uploadLabel.style.background = '';
+            });
+            
+            uploadLabel?.addEventListener('drop', (e) => {
+                const file = e.dataTransfer.files[0];
+                if (file) {
+                    fileInput.files = e.dataTransfer.files;
+                    const event = new Event('change');
+                    fileInput.dispatchEvent(event);
+                }
+                uploadLabel.style.borderColor = '';
+                uploadLabel.style.background = '';
+            });
+        }
     }
     
     showView(view) {
@@ -88,29 +156,40 @@ class BlogManager {
     }
     
     savePost() {
-        const title = document.getElementById('post-title').value;
-        const category = document.getElementById('post-category').value;
-        const content = tinymce.get('post-content').getContent();
-        const tags = document.getElementById('post-tags').value.split(',').map(tag => tag.trim());
-        const image = document.querySelector('.image-preview img')?.src || '';
-        
-        const post = {
-            id: Date.now(),
-            title,
-            category,
-            content,
-            tags,
-            image,
-            date: new Date().toISOString(),
-            status: 'published'
-        };
-        
-        this.posts.unshift(post);
-        localStorage.setItem('blogPosts', JSON.stringify(this.posts));
-        
-        this.showSuccessMessage('Beitrag erfolgreich gespeichert');
-        this.loadPosts();
-        this.resetForm();
+        try {
+            const title = document.getElementById('post-title').value;
+            const category = document.getElementById('post-category').value;
+            const content = tinymce.get('post-content').getContent();
+            const tags = document.getElementById('post-tags').value
+                .split(',')
+                .map(tag => tag.trim())
+                .filter(tag => tag);
+            const image = document.querySelector('.image-preview img')?.src || '';
+            
+            if (!title || !category || !content) {
+                throw new Error('Bitte füllen Sie alle erforderlichen Felder aus.');
+            }
+            
+            const post = {
+                id: Date.now(),
+                title,
+                category,
+                content,
+                tags,
+                image,
+                date: new Date().toISOString(),
+                status: 'published'
+            };
+            
+            this.posts.unshift(post);
+            localStorage.setItem('blogPosts', JSON.stringify(this.posts));
+            
+            this.showSuccess('Beitrag erfolgreich gespeichert');
+            this.loadPosts();
+            this.resetForm();
+        } catch (error) {
+            this.showError(error.message);
+        }
     }
     
     loadPosts() {
@@ -118,7 +197,7 @@ class BlogManager {
         if (!postsGrid) return;
         
         postsGrid.innerHTML = this.posts.map(post => `
-            <div class="post-card" data-id="${post.id}">
+            <article class="post-card" data-id="${post.id}">
                 <div class="post-image">
                     <img src="${post.image || 'placeholder.jpg'}" alt="${post.title}">
                 </div>
@@ -126,8 +205,8 @@ class BlogManager {
                     <div class="post-category">${post.category}</div>
                     <h3>${post.title}</h3>
                     <div class="post-meta">
-                        <span>${new Date(post.date).toLocaleDateString('de-DE')}</span>
-                        <span>${post.status}</span>
+                        <span><i class="far fa-calendar"></i> ${new Date(post.date).toLocaleDateString('de-DE')}</span>
+                        <span><i class="far fa-bookmark"></i> ${post.status}</span>
                     </div>
                     <div class="post-actions">
                         <button onclick="blogManager.editPost(${post.id})">
@@ -138,7 +217,7 @@ class BlogManager {
                         </button>
                     </div>
                 </div>
-            </div>
+            </article>
         `).join('');
     }
     
@@ -160,35 +239,41 @@ class BlogManager {
     }
     
     deletePost(id) {
-        if (!confirm('Möchten Sie diesen Beitrag wirklich löschen?')) return;
-        
-        this.posts = this.posts.filter(p => p.id !== id);
-        localStorage.setItem('blogPosts', JSON.stringify(this.posts));
-        this.loadPosts();
-        this.showSuccessMessage('Beitrag erfolgreich gelöscht');
+        if (confirm('Möchten Sie diesen Beitrag wirklich löschen?')) {
+            this.posts = this.posts.filter(p => p.id !== id);
+            localStorage.setItem('blogPosts', JSON.stringify(this.posts));
+            this.loadPosts();
+            this.showSuccess('Beitrag erfolgreich gelöscht');
+        }
     }
     
     addCategory() {
         const input = document.getElementById('category-name');
         const category = input.value.trim();
         
-        if (!category) return;
-        
-        if (!this.categories.includes(category)) {
-            this.categories.push(category);
-            localStorage.setItem('blogCategories', JSON.stringify(this.categories));
-            this.loadCategories();
-            input.value = '';
-            this.showSuccessMessage('Kategorie erfolgreich hinzugefügt');
+        if (!category) {
+            this.showError('Bitte geben Sie einen Kategorienamen ein.');
+            return;
         }
+        
+        if (this.categories.includes(category)) {
+            this.showError('Diese Kategorie existiert bereits.');
+            return;
+        }
+        
+        this.categories.push(category);
+        localStorage.setItem('blogCategories', JSON.stringify(this.categories));
+        this.loadCategories();
+        input.value = '';
+        this.showSuccess('Kategorie erfolgreich hinzugefügt');
     }
     
     loadCategories() {
-        // Update category select in new post form
+        // Update category select
         const select = document.getElementById('post-category');
         if (select) {
             select.innerHTML = `
-                <option value="">Kategorie wählen</option>
+                <option value="">Bitte wählen Sie eine Kategorie</option>
                 ${this.categories.map(cat => `
                     <option value="${cat}">${cat}</option>
                 `).join('')}
@@ -200,7 +285,7 @@ class BlogManager {
         if (list) {
             list.innerHTML = this.categories.map(cat => `
                 <div class="category-item">
-                    <span>${cat}</span>
+                    <span><i class="fas fa-folder"></i> ${cat}</span>
                     <button onclick="blogManager.deleteCategory('${cat}')">
                         <i class="fas fa-times"></i>
                     </button>
@@ -210,12 +295,12 @@ class BlogManager {
     }
     
     deleteCategory(category) {
-        if (!confirm('Möchten Sie diese Kategorie wirklich löschen?')) return;
-        
-        this.categories = this.categories.filter(c => c !== category);
-        localStorage.setItem('blogCategories', JSON.stringify(this.categories));
-        this.loadCategories();
-        this.showSuccessMessage('Kategorie erfolgreich gelöscht');
+        if (confirm('Möchten Sie diese Kategorie wirklich löschen?')) {
+            this.categories = this.categories.filter(c => c !== category);
+            localStorage.setItem('blogCategories', JSON.stringify(this.categories));
+            this.loadCategories();
+            this.showSuccess('Kategorie erfolgreich gelöscht');
+        }
     }
     
     resetForm() {
@@ -224,16 +309,41 @@ class BlogManager {
         document.querySelector('.image-preview').innerHTML = '';
     }
     
-    showSuccessMessage(message) {
+    handleLogout() {
+        if (confirm('Möchten Sie sich wirklich abmelden?')) {
+            localStorage.removeItem('adminLoggedIn');
+            window.location.href = 'login.html';
+        }
+    }
+    
+    showSuccess(message) {
+        this.showToast(message, 'success');
+    }
+    
+    showError(message) {
+        this.showToast(message, 'error');
+    }
+    
+    showToast(message, type = 'success') {
         const toast = document.createElement('div');
-        toast.className = 'toast success';
+        toast.className = `toast ${type}`;
         toast.innerHTML = `
-            <i class="fas fa-check-circle"></i>
+            <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
             <span>${message}</span>
         `;
         
         document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 3000);
+        
+        // Trigger reflow for animation
+        toast.offsetHeight;
+        
+        // Add animation class
+        toast.classList.add('show');
+        
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
     }
 }
 
