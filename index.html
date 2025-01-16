@@ -3,6 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Nachhaltiger Private Chef Service & Ernährungsberatung. Professionelle Kochkurse und Catering mit Fokus auf Nachhaltigkeit und regionale Produkte.">
+    <meta name="keywords" content="Private Chef, Nachhaltigkeit, Ernährungsberatung, Catering, Kochkurse, Bio, Regional">
+    <meta name="author" content="Samir Tuerpe">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Nachhaltige Kulinarik | Private Chef & Ernährungsberatung">
+    <meta property="og:description" content="Professioneller Private Chef Service mit Fokus auf Nachhaltigkeit und regionale Produkte.">
+    <meta property="og:image" content="/images/og-image.jpg">
+    <meta property="og:url" content="https://ihre-domain.de">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
     <title>Nachhaltige Kulinarik | Private Chef & Ernährungsberatung</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -14,6 +32,19 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
 </head>
 <body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10"/>
+            </svg>
+            <div class="loader-text">Nachhaltige Kulinarik</div>
+        </div>
+    </div>
+    
+    <!-- Scroll Indicator -->
+    <div class="scroll-progress"></div>
+    
     <header>
         <nav>
             <ul>
@@ -52,7 +83,7 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide menu-card">
                         <div class="menu-image">
-                            <img src="https://source.unsplash.com/800x600/?seasonal,food" alt="Saisonales Gericht">
+                            <img data-src="https://source.unsplash.com/800x600/?seasonal,food" alt="Saisonales Gericht" loading="lazy">
                             <div class="menu-badges">
                                 <span class="badge seasonal">Saisonal</span>
                                 <span class="badge vegetarian">Vegetarisch</span>
@@ -147,7 +178,7 @@
             <div class="blog-grid">
                 <article class="blog-card">
                     <div class="blog-image">
-                        <img src="https://source.unsplash.com/800x600/?cooking,sustainable" alt="Blog Beitrag">
+                        <img data-src="https://source.unsplash.com/800x600/?cooking,sustainable" alt="Blog Beitrag" loading="lazy">
                     </div>
                     <div class="blog-content">
                         <div class="blog-category">Nachhaltigkeit</div>

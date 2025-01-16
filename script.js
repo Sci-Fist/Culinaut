@@ -316,4 +316,80 @@ const statsObserver = new IntersectionObserver((entries) => {
     });
 }, { threshold: 0.5 });
 
-ecoStats.forEach(stat => statsObserver.observe(stat)); 
+ecoStats.forEach(stat => statsObserver.observe(stat));
+
+// Preloader
+window.addEventListener('load', () => {
+    const preloader = document.querySelector('.preloader');
+    preloader.classList.add('fade-out');
+    
+    // Initialize AOS after preloader
+    setTimeout(() => {
+        AOS.init({
+            duration: 1200,
+            easing: 'ease-out',
+            once: true,
+            offset: 100
+        });
+    }, 500);
+});
+
+// Scroll Progress Indicator
+const scrollProgress = document.querySelector('.scroll-progress');
+window.addEventListener('scroll', () => {
+    const height = document.documentElement;
+    const scrollTop = document.documentElement.scrollTop;
+    const scrollHeight = height.scrollHeight - height.clientHeight;
+    const progress = `${(scrollTop / scrollHeight) * 100}%`;
+    
+    scrollProgress.style.transform = `scaleX(${scrollTop / scrollHeight})`;
+});
+
+// Lazy Loading Images with Intersection Observer
+const imageObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.addEventListener('load', () => {
+                img.classList.add('loaded');
+            });
+            observer.unobserve(img);
+        }
+    });
+}, {
+    rootMargin: '50px 0px',
+    threshold: 0.1
+});
+
+document.querySelectorAll('img[data-src]').forEach(img => {
+    imageObserver.observe(img);
+});
+
+// Smooth Page Transitions
+const transitionElement = document.createElement('div');
+transitionElement.className = 'page-transition';
+document.body.appendChild(transitionElement);
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        
+        // Activate transition
+        transitionElement.classList.add('active');
+        
+        // After transition completes
+        setTimeout(() => {
+            window.scrollTo({
+                top: target.offsetTop - 80,
+                behavior: 'smooth'
+            });
+            
+            // Hide transition
+            setTimeout(() => {
+                transitionElement.classList.remove('active');
+            }, 600);
+        }, 600);
+    });
+}); 
