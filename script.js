@@ -392,4 +392,58 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             }, 600);
         }, 600);
     });
+});
+
+// Seasonal Calendar Functionality
+const seasonBtns = document.querySelectorAll('.season-btn');
+const seasonContents = document.querySelectorAll('.season-content');
+
+// Automatically set current season
+const getCurrentSeason = () => {
+    const month = new Date().getMonth();
+    if (month >= 2 && month <= 4) return 'spring';
+    if (month >= 5 && month <= 7) return 'summer';
+    if (month >= 8 && month <= 10) return 'autumn';
+    return 'winter';
+};
+
+// Set initial active season
+const currentSeason = getCurrentSeason();
+document.querySelector(`[data-season="${currentSeason}"]`).classList.add('active');
+document.getElementById(currentSeason).classList.add('active');
+
+// Season switching functionality
+seasonBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        // Remove active classes
+        seasonBtns.forEach(b => b.classList.remove('active'));
+        seasonContents.forEach(c => c.classList.remove('active'));
+        
+        // Add active class to clicked button and corresponding content
+        btn.classList.add('active');
+        const season = btn.dataset.season;
+        document.getElementById(season).classList.add('active');
+        
+        // Animate products
+        const products = document.querySelectorAll(`#${season} .product-item`);
+        products.forEach((product, index) => {
+            product.style.opacity = '0';
+            product.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                product.style.opacity = '1';
+                product.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+    });
+});
+
+// Animate products on initial load
+const currentProducts = document.querySelectorAll(`#${currentSeason} .product-item`);
+currentProducts.forEach((product, index) => {
+    product.style.opacity = '0';
+    product.style.transform = 'translateY(20px)';
+    setTimeout(() => {
+        product.style.opacity = '1';
+        product.style.transform = 'translateY(0)';
+    }, index * 100);
 }); 

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Admin | Nachhaltige Kulinarik</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- TinyMCE für Rich Text Editing -->
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"></script>
+</head>
+<body class="admin-panel">
+    <header class="admin-header">
+        <nav>
+            <div class="admin-logo">Blog Management</div>
+            <ul>
+                <li><a href="#" class="active" data-view="posts">Beiträge</a></li>
+                <li><a href="#" data-view="new">Neuer Beitrag</a></li>
+                <li><a href="#" data-view="categories">Kategorien</a></li>
+                <li><a href="../" target="_blank">Website ansehen</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="admin-main">
+        <!-- Beiträge Übersicht -->
+        <section id="posts-view" class="admin-view">
+            <h2>Blog Beiträge</h2>
+            <div class="posts-grid">
+                <!-- Beiträge werden hier dynamisch eingefügt -->
+            </div>
+        </section>
+
+        <!-- Neuer Beitrag -->
+        <section id="new-post-view" class="admin-view hidden">
+            <h2>Neuer Blog Beitrag</h2>
+            <form id="new-post-form" class="post-form">
+                <div class="form-group">
+                    <input type="text" id="post-title" placeholder="Titel des Beitrags" required>
+                </div>
+                
+                <div class="form-group">
+                    <select id="post-category" required>
+                        <option value="">Kategorie wählen</option>
+                        <option value="nachhaltigkeit">Nachhaltigkeit</option>
+                        <option value="rezepte">Rezepte</option>
+                        <option value="ernaehrung">Ernährung</option>
+                        <option value="events">Events</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <input type="file" id="post-image" accept="image/*">
+                    <div class="image-preview"></div>
+                </div>
+
+                <div class="form-group">
+                    <textarea id="post-content" placeholder="Bloginhalt"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" id="post-tags" placeholder="Tags (mit Komma getrennt)">
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Veröffentlichen</button>
+                    <button type="button" class="btn-secondary">Als Entwurf speichern</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Kategorien Verwaltung -->
+        <section id="categories-view" class="admin-view hidden">
+            <h2>Kategorien verwalten</h2>
+            <div class="categories-management">
+                <form id="new-category-form">
+                    <div class="form-group">
+                        <input type="text" id="category-name" placeholder="Neue Kategorie">
+                        <button type="submit" class="btn-primary">Hinzufügen</button>
+                    </div>
+                </form>
+                <div class="categories-list">
+                    <!-- Kategorien werden hier dynamisch eingefügt -->
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html> 
