@@ -2,10 +2,10 @@
 window.addEventListener('load', () => {
     // Initialize AOS
     AOS.init({
-        duration: 1200,
+        duration: 800,
         easing: 'ease-out',
         once: true,
-        offset: 100
+        offset: 50
     });
 
     // Hide preloader after a small delay to ensure smooth transition
@@ -13,17 +13,66 @@ window.addEventListener('load', () => {
         const preloader = document.querySelector('.preloader');
         preloader.classList.add('fade-out');
     }, 500);
+
+    // Check if URL has a hash and scroll to section after small delay
+    if (window.location.hash) {
+        setTimeout(() => {
+            const section = document.querySelector(window.location.hash);
+            if (section) {
+                const headerHeight = document.querySelector('header').offsetHeight;
+                window.scrollTo({
+                    top: section.offsetTop - headerHeight,
+                    behavior: 'smooth'
+                });
+            }
+        }, 100);
+    }
 });
 
-// Smooth scroll handling with elegant easing
+// Enhanced smooth scroll handling with better positioning
 document.querySelectorAll('nav a').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
         const section = document.querySelector(this.getAttribute('href'));
+        const headerHeight = document.querySelector('header').offsetHeight;
+        
+        // Add active state to nav items
+        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Calculate exact scroll position
+        let offset = section.offsetTop - headerHeight;
+        
+        // Adjust offset for specific sections
+        if (section.id === 'menu') {
+            offset -= 20; // Fine-tune menu section position
+        }
+        
         window.scrollTo({
-            top: section.offsetTop - 80,
+            top: offset,
             behavior: 'smooth'
         });
+    });
+});
+
+// Update active nav item on scroll with improved accuracy
+window.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('nav a');
+    const headerHeight = document.querySelector('header').offsetHeight;
+    const scrollPosition = window.scrollY + headerHeight + 50; // Added offset for better detection
+    
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionBottom = sectionTop + section.offsetHeight;
+        
+        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+            const correspondingLink = document.querySelector(`nav a[href="#${section.id}"]`);
+            if (correspondingLink) {
+                navLinks.forEach(link => link.classList.remove('active'));
+                correspondingLink.classList.add('active');
+            }
+        }
     });
 });
 
@@ -219,65 +268,201 @@ producers.forEach(producer => {
 const bookingTypes = document.querySelectorAll('.booking-type');
 const bookingCalendar = document.querySelector('.booking-calendar');
 
-// Initialize Flatpickr calendar
-const calendar = flatpickr(bookingCalendar, {
-    inline: true,
-    minDate: 'today',
-    dateFormat: 'Y-m-d',
-    locale: 'de',
-    disable: [
-        function(date) {
-            // Disable Sundays and past dates
-            return (date.getDay() === 0);
-        }
-    ],
-    onChange: function(selectedDates, dateStr) {
-        updateBookingForm(dateStr);
-    }
-});
+// Menu Modal Functionality
+const menuModal = document.querySelector('.menu-modal');
+const closeModal = document.querySelector('.close-modal');
+const menuCards = document.querySelectorAll('.menu-card');
 
-// Booking type selection
-bookingTypes.forEach(type => {
-    type.addEventListener('click', () => {
-        // Remove active class from all types
-        bookingTypes.forEach(t => t.classList.remove('active'));
-        // Add active class to selected type
-        type.classList.add('active');
-        // Update available time slots based on type
-        updateTimeSlots(type.dataset.type);
+// Sample recipe data (in production, this would come from a database)
+const recipeData = {
+    'Kürbis-Variation': {
+        ingredients: [
+            '1 Hokkaido-Kürbis aus regionalem Anbau',
+            '200g gemischte Waldpilze',
+            '100g Maronen',
+            'Frische Wildkräuter',
+            '200g Belugalinsen',
+            'Kürbiskerne für Pesto'
+        ],
+        preparation: [
+            'Kürbis waschen und in Spalten schneiden',
+            'Bei 180°C im Ofen rösten bis er weich ist',
+            'Pilze und Maronen in Butter anschwitzen',
+            'Linsen nach Packungsanweisung kochen',
+            'Kürbiskernpesto frisch zubereiten',
+            'Alles anrichten und mit Wildkräutern garnieren'
+        ],
+        sustainability: [
+            { icon: 'fa-leaf', text: 'Kürbis aus lokalem Anbau (15km)' },
+            { icon: 'fa-seedling', text: 'Wildkräuter aus eigenem Anbau' },
+            { icon: 'fa-recycle', text: 'Zero-Waste Zubereitung' }
+        ]
+    }
+    // Add more recipes as needed
+};
+
+menuCards.forEach(card => {
+    card.addEventListener('click', () => {
+        const title = card.querySelector('h3').textContent;
+        const imgSrc = card.querySelector('img').src;
+        
+        // Populate modal
+        menuModal.querySelector('.modal-image img').src = imgSrc;
+        menuModal.querySelector('h2').textContent = title;
+        
+        // Get recipe data
+        const recipe = recipeData[title] || {
+            ingredients: ['Wird geladen...'],
+            preparation: ['Wird geladen...'],
+            sustainability: [{ icon: 'fa-leaf', text: 'Wird geladen...' }]
+        };
+        
+        // Populate ingredients
+        const ingredientsList = menuModal.querySelector('.ingredients ul');
+        ingredientsList.innerHTML = recipe.ingredients
+            .map(ingredient => `<li>${ingredient}</li>`)
+            .join('');
+        
+        // Populate preparation steps
+        const preparationList = menuModal.querySelector('.preparation ol');
+        preparationList.innerHTML = recipe.preparation
+            .map(step => `<li>${step}</li>`)
+            .join('');
+        
+        // Populate sustainability info
+        const ecoPoints = menuModal.querySelector('.eco-points');
+        ecoPoints.innerHTML = recipe.sustainability
+            .map(point => `
+                <li>
+                    <i class="fas ${point.icon}"></i>
+                    <span>${point.text}</span>
+                </li>
+            `)
+            .join('');
+        
+        // Show modal with animation
+        menuModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
     });
 });
 
-function updateTimeSlots(bookingType) {
-    const timeSlots = {
-        'private-dining': ['18:00', '19:00', '20:00'],
-        'workshop': ['10:00', '14:00', '17:00'],
-        'consulting': ['09:00', '11:00', '15:00']
-    };
-    
-    const timeSlotsContainer = document.querySelector('.time-slots');
-    if (timeSlotsContainer && timeSlots[bookingType]) {
-        timeSlotsContainer.innerHTML = timeSlots[bookingType]
-            .map(time => `
-                <button class="time-slot" data-time="${time}">
-                    ${time} Uhr
-                </button>
-            `).join('');
-    }
-}
+closeModal.addEventListener('click', () => {
+    menuModal.classList.remove('active');
+    document.body.style.overflow = '';
+});
 
-function updateBookingForm(selectedDate) {
-    const selectedDateDisplay = document.querySelector('.selected-date');
-    if (selectedDateDisplay) {
-        selectedDateDisplay.textContent = new Date(selectedDate)
-            .toLocaleDateString('de-DE', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
+// Close modal on outside click
+menuModal.addEventListener('click', (e) => {
+    if (e.target === menuModal) {
+        menuModal.classList.remove('active');
+        document.body.style.overflow = '';
     }
-}
+});
+
+// Enhanced Booking System
+const bookingSystem = {
+    init() {
+        this.setupCalendar();
+        this.setupTimeSlots();
+        this.handleBookingTypeSelection();
+    },
+    
+    setupCalendar() {
+        const calendar = flatpickr(bookingCalendar, {
+            inline: true,
+            minDate: 'today',
+            dateFormat: 'Y-m-d',
+            locale: 'de',
+            disable: [
+                function(date) {
+                    // Disable Sundays and past dates
+                    return (date.getDay() === 0);
+                }
+            ],
+            onChange: (selectedDates, dateStr) => {
+                this.updateAvailableTimeSlots(dateStr);
+            }
+        });
+    },
+    
+    setupTimeSlots() {
+        const container = document.createElement('div');
+        container.className = 'time-slots-container';
+        bookingCalendar.after(container);
+    },
+    
+    handleBookingTypeSelection() {
+        bookingTypes.forEach(type => {
+            type.addEventListener('click', () => {
+                bookingTypes.forEach(t => t.classList.remove('active'));
+                type.classList.add('active');
+                this.updateAvailableTimeSlots();
+            });
+        });
+    },
+    
+    updateAvailableTimeSlots(selectedDate) {
+        const activeType = document.querySelector('.booking-type.active');
+        if (!activeType) return;
+        
+        const bookingType = activeType.dataset.type;
+        const timeSlots = this.getTimeSlotsForType(bookingType);
+        
+        const container = document.querySelector('.time-slots-container');
+        container.innerHTML = `
+            <h3>Verfügbare Zeiten</h3>
+            <div class="time-slots">
+                ${timeSlots.map(time => `
+                    <button class="time-slot" data-time="${time}">
+                        ${time} Uhr
+                    </button>
+                `).join('')}
+            </div>
+        `;
+        
+        // Add click handlers for time slots
+        container.querySelectorAll('.time-slot').forEach(slot => {
+            slot.addEventListener('click', () => {
+                container.querySelectorAll('.time-slot').forEach(s => s.classList.remove('active'));
+                slot.classList.add('active');
+                this.updateBookingSummary(selectedDate, slot.dataset.time);
+            });
+        });
+    },
+    
+    getTimeSlotsForType(type) {
+        const slots = {
+            'private-dining': ['18:00', '19:00', '20:00'],
+            'workshop': ['10:00', '14:00', '17:00'],
+            'consulting': ['09:00', '11:00', '15:00']
+        };
+        return slots[type] || [];
+    },
+    
+    updateBookingSummary(date, time) {
+        const summary = document.querySelector('.booking-summary') || document.createElement('div');
+        summary.className = 'booking-summary';
+        
+        const formattedDate = new Date(date).toLocaleDateString('de-DE', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+        
+        summary.innerHTML = `
+            <h3>Ihre Auswahl</h3>
+            <p><i class="far fa-calendar"></i> ${formattedDate}</p>
+            <p><i class="far fa-clock"></i> ${time} Uhr</p>
+        `;
+        
+        const container = document.querySelector('.time-slots-container');
+        container.appendChild(summary);
+    }
+};
+
+// Initialize booking system
+bookingSystem.init();
 
 // Blog interaction enhancements
 document.querySelectorAll('.blog-card').forEach(card => {
