@@ -54,7 +54,6 @@
                 <li><a href="#sustainability">Nachhaltigkeit</a></li>
                 <li><a href="#services">Services</a></li>
                 <li><a href="#blog">Blog</a></li>
-                <li><a href="#booking">Buchung</a></li>
                 <li><a href="#contact">Kontakt</a></li>
             </ul>
         </nav>
@@ -72,160 +71,149 @@
             </div>
         </section>
 
-        <section id="menu" class="menu-section" data-aos="fade-up">
+        <section id="menu" class="menu-section">
             <h2>Saisonale Kreationen</h2>
             <div class="season-indicator">
                 <i class="fas fa-leaf"></i>
-                <span>Aktuelle Herbstmenüs</span>
+                <span>Aktuelle Saisonale Spezialitäten</span>
             </div>
-            
-            <div class="menu-slider swiper">
+            <div class="swiper-container menu-slider">
                 <div class="swiper-wrapper">
-                    <!-- Herbst-Winter Kreationen -->
-                    <div class="swiper-slide menu-card">
-                        <div class="menu-image">
-                            <img data-src="https://source.unsplash.com/800x600/?pumpkin,dish" alt="Kürbis-Variation" loading="lazy">
-                            <div class="menu-badges">
-                                <span class="badge seasonal">Saisonal</span>
-                                <span class="badge vegetarian">Vegetarisch</span>
-                            </div>
-                        </div>
-                        <div class="menu-content">
-                            <h3>Kürbis-Variation</h3>
-                            <p class="menu-description">Geschmorter Hokkaido-Kürbis mit Waldpilzen, Maronen und hausgemachtem Kürbiskernpesto, serviert mit Belugalinsen und Wildkräutern</p>
-                            <div class="menu-details">
-                                <div class="origin">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>Regionale Zutaten (>30km)</span>
-                                </div>
-                                <div class="eco-score">
-                                    <i class="fas fa-seedling"></i>
-                                    <span>CO₂-Neutral</span>
+                    <!-- Kürbis-Variation -->
+                    <div class="swiper-slide">
+                        <div class="menu-card">
+                            <div class="menu-image">
+                                <img src="https://source.unsplash.com/800x600/?pumpkin,dish" alt="Kürbis-Variation">
+                                <div class="menu-badges">
+                                    <span class="badge seasonal">Saisonal</span>
+                                    <span class="badge vegetarian">Vegetarisch</span>
+                                    <span class="badge regional">Regional</span>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide menu-card">
-                        <div class="menu-image">
-                            <img data-src="https://source.unsplash.com/800x600/?venison,dish" alt="Hirschrücken" loading="lazy">
-                            <div class="menu-badges">
-                                <span class="badge seasonal">Saisonal</span>
-                                <span class="badge regional">Regional</span>
-                            </div>
-                        </div>
-                        <div class="menu-content">
-                            <h3>Geschmorter Hirschrücken</h3>
-                            <p class="menu-description">Sanft geschmorter Hirschrücken aus heimischer Jagd mit Rotwein-Schalotten, Pastinakenpüree und glasierten Waldmöhren</p>
-                            <div class="menu-details">
-                                <div class="origin">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>Lokale Jagd (>15km)</span>
+                            <div class="menu-content">
+                                <h3>Kürbis-Variation</h3>
+                                <p class="menu-description">Geschmorter Hokkaido-Kürbis mit Waldpilzen, Maronen und hausgemachtem Kürbiskernpesto, serviert mit Belugalinsen und Wildkräutern</p>
+                                <div class="menu-details">
+                                    <span><i class="fas fa-map-marker-alt"></i>Regionale Zutaten (>30km)</span>
+                                    <span><i class="fas fa-seedling"></i>CO₂-Neutral</span>
                                 </div>
-                                <div class="eco-score">
-                                    <i class="fas fa-leaf"></i>
-                                    <span>Nachhaltige Jagd</span>
-                                </div>
+                                <button class="view-recipe-btn">Details ansehen <i class="fas fa-arrow-right"></i></button>
                             </div>
                         </div>
                     </div>
 
-                    <div class="swiper-slide menu-card">
-                        <div class="menu-image">
-                            <img data-src="https://source.unsplash.com/800x600/?root,vegetables" alt="Wurzelgemüse" loading="lazy">
-                            <div class="menu-badges">
-                                <span class="badge seasonal">Saisonal</span>
-                                <span class="badge vegetarian">Vegetarisch</span>
-                                <span class="badge vegan">Vegan</span>
+                    <!-- Hirschrücken -->
+                    <div class="swiper-slide">
+                        <div class="menu-card">
+                            <div class="menu-image">
+                                <img src="https://source.unsplash.com/800x600/?venison,dish" alt="Hirschrücken">
+                                <div class="menu-badges">
+                                    <span class="badge seasonal">Saisonal</span>
+                                    <span class="badge regional">Regional</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="menu-content">
-                            <h3>Winterliches Wurzelgemüse</h3>
-                            <p class="menu-description">Ofengeröstetes Wurzelgemüse mit Thymian, serviert auf Buchweizen-Risotto mit geräuchertem Mandelpüree und Trüffel</p>
-                            <div class="menu-details">
-                                <div class="origin">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>Bio-Bauernhof Schmidt</span>
+                            <div class="menu-content">
+                                <h3>Geschmorter Hirschrücken</h3>
+                                <p class="menu-description">Sanft geschmorter Hirschrücken aus heimischer Jagd mit Rotwein-Schalotten, Pastinakenpüree und glasierten Waldmöhren</p>
+                                <div class="menu-details">
+                                    <span><i class="fas fa-map-marker-alt"></i>Lokale Jagd (>15km)</span>
+                                    <span><i class="fas fa-leaf"></i>Nachhaltige Jagd</span>
                                 </div>
-                                <div class="eco-score">
-                                    <i class="fas fa-seedling"></i>
-                                    <span>100% Pflanzlich</span>
-                                </div>
+                                <button class="view-recipe-btn">Details ansehen <i class="fas fa-arrow-right"></i></button>
                             </div>
                         </div>
                     </div>
 
-                    <div class="swiper-slide menu-card">
-                        <div class="menu-image">
-                            <img data-src="https://source.unsplash.com/800x600/?fish,sustainable" alt="Saibling" loading="lazy">
-                            <div class="menu-badges">
-                                <span class="badge seasonal">Saisonal</span>
-                                <span class="badge sustainable">Nachhaltig</span>
+                    <!-- Wurzelgemüse -->
+                    <div class="swiper-slide">
+                        <div class="menu-card">
+                            <div class="menu-image">
+                                <img src="https://source.unsplash.com/800x600/?root,vegetables" alt="Wurzelgemüse">
+                                <div class="menu-badges">
+                                    <span class="badge seasonal">Saisonal</span>
+                                    <span class="badge vegetarian">Vegetarisch</span>
+                                    <span class="badge vegan">Vegan</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="menu-content">
-                            <h3>Alpensaibling</h3>
-                            <p class="menu-description">Pochierter Saibling aus nachhaltiger Zucht mit Schwarzwurzel-Variation, Safran-Sauce und Wildreis-Risotto</p>
-                            <div class="menu-details">
-                                <div class="origin">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>Lokale Fischzucht</span>
+                            <div class="menu-content">
+                                <h3>Winterliches Wurzelgemüse</h3>
+                                <p class="menu-description">Ofengeröstetes Wurzelgemüse mit Thymian, serviert auf Buchweizen-Risotto mit geräuchertem Mandelpüree und Trüffel</p>
+                                <div class="menu-details">
+                                    <span><i class="fas fa-map-marker-alt"></i>Bio-Bauernhof Schmidt</span>
+                                    <span><i class="fas fa-seedling"></i>100% Pflanzlich</span>
                                 </div>
-                                <div class="eco-score">
-                                    <i class="fas fa-fish"></i>
-                                    <span>MSC-zertifiziert</span>
-                                </div>
+                                <button class="view-recipe-btn">Details ansehen <i class="fas fa-arrow-right"></i></button>
                             </div>
                         </div>
                     </div>
 
-                    <div class="swiper-slide menu-card">
-                        <div class="menu-image">
-                            <img data-src="https://source.unsplash.com/800x600/?dessert,winter" alt="Dessert-Variation" loading="lazy">
-                            <div class="menu-badges">
-                                <span class="badge seasonal">Saisonal</span>
-                                <span class="badge vegetarian">Vegetarisch</span>
+                    <!-- Alpensaibling -->
+                    <div class="swiper-slide">
+                        <div class="menu-card">
+                            <div class="menu-image">
+                                <img src="https://source.unsplash.com/800x600/?fish,sustainable" alt="Saibling">
+                                <div class="menu-badges">
+                                    <span class="badge seasonal">Saisonal</span>
+                                    <span class="badge sustainable">Nachhaltig</span>
+                                </div>
+                            </div>
+                            <div class="menu-content">
+                                <h3>Alpensaibling</h3>
+                                <p class="menu-description">Pochierter Saibling aus nachhaltiger Zucht mit Schwarzwurzel-Variation, Safran-Sauce und Wildreis-Risotto</p>
+                                <div class="menu-details">
+                                    <span><i class="fas fa-map-marker-alt"></i>Lokale Fischzucht</span>
+                                    <span><i class="fas fa-fish"></i>MSC-zertifiziert</span>
+                                </div>
+                                <button class="view-recipe-btn">Details ansehen <i class="fas fa-arrow-right"></i></button>
                             </div>
                         </div>
-                        <div class="menu-content">
-                            <h3>Winterliche Dessert-Variation</h3>
-                            <p class="menu-description">Gewürzbirne in Rotwein, hausgemachtes Zimteis, Haselnuss-Crumble und warme Schokoladen-Variation</p>
-                            <div class="menu-details">
-                                <div class="origin">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>Regionale Produkte</span>
+                    </div>
+
+                    <!-- Dessert-Variation -->
+                    <div class="swiper-slide">
+                        <div class="menu-card">
+                            <div class="menu-image">
+                                <img src="https://source.unsplash.com/800x600/?dessert,winter" alt="Dessert-Variation">
+                                <div class="menu-badges">
+                                    <span class="badge seasonal">Saisonal</span>
+                                    <span class="badge vegetarian">Vegetarisch</span>
                                 </div>
-                                <div class="eco-score">
-                                    <i class="fas fa-heart"></i>
-                                    <span>Hausgemacht</span>
+                            </div>
+                            <div class="menu-content">
+                                <h3>Winterliche Dessert-Variation</h3>
+                                <p class="menu-description">Gewürzbirne in Rotwein, hausgemachtes Zimteis, Haselnuss-Crumble und warme Schokoladen-Variation</p>
+                                <div class="menu-details">
+                                    <span><i class="fas fa-map-marker-alt"></i>Regionale Produkte</span>
+                                    <span><i class="fas fa-heart"></i>Hausgemacht</span>
                                 </div>
+                                <button class="view-recipe-btn">Details ansehen <i class="fas fa-arrow-right"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="swiper-pagination"></div>
-                <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
         </section>
 
-        <section id="philosophy" data-aos="fade-up">
-            <h2>Meine Philosophie</h2>
+        <section id="philosophy" class="philosophy-section">
+            <h2>Unsere Philosophie</h2>
             <div class="philosophy-grid">
                 <div class="philosophy-card">
                     <i class="fas fa-seedling"></i>
-                    <h3>Nachhaltigkeit</h3>
-                    <p>Als Ökotrophologe mit Schwerpunkt Nachhaltigkeit steht die Umweltverträglichkeit im Zentrum meiner Arbeit.</p>
+                    <h3>Nachhaltige Zutaten</h3>
+                    <p>Wir arbeiten ausschließlich mit sorgfältig ausgewählten, regionalen Produzenten zusammen, die unsere Werte teilen.</p>
                 </div>
                 <div class="philosophy-card">
                     <i class="fas fa-heart"></i>
-                    <h3>Gesundheit</h3>
-                    <p>Wissenschaftlich fundierte Ernährungskonzepte vereint mit kulinarischem Genuss.</p>
+                    <h3>Mit Liebe gekocht</h3>
+                    <p>Jedes Gericht wird mit Leidenschaft und Hingabe zubereitet, um Ihnen ein unvergessliches Geschmackserlebnis zu bieten.</p>
                 </div>
                 <div class="philosophy-card">
-                    <i class="fas fa-star"></i>
-                    <h3>Qualität</h3>
-                    <p>Ausgewählte regionale und saisonale Produkte für höchste Qualität.</p>
+                    <i class="fas fa-sync-alt"></i>
+                    <h3>Saisonaler Rhythmus</h3>
+                    <p>Unsere Menüs passen sich dem natürlichen Rhythmus der Jahreszeiten an, um optimale Frische und Geschmack zu garantieren.</p>
                 </div>
             </div>
         </section>
@@ -271,112 +259,112 @@
             </div>
         </section>
 
-        <section id="seasonal-calendar" class="seasonal-calendar-section" data-aos="fade-up">
+        <section id="seasonal-calendar" class="seasonal-calendar-section">
             <h2>Saisonkalender</h2>
             <div class="calendar-container">
                 <div class="calendar-nav">
-                    <button class="season-btn active" data-season="winter">Winter</button>
+                    <button class="season-btn" data-season="winter">Winter</button>
                     <button class="season-btn" data-season="spring">Frühling</button>
                     <button class="season-btn" data-season="summer">Sommer</button>
                     <button class="season-btn" data-season="autumn">Herbst</button>
                 </div>
                 
-                <div class="season-content active" id="winter">
+                <div class="season-content" data-season="winter">
                     <div class="product-grid">
                         <div class="product-item">
                             <i class="fas fa-carrot"></i>
                             <span>Pastinaken</span>
-                            <div class="availability">Dez - März</div>
+                            <p class="availability">Dez - März</p>
                         </div>
                         <div class="product-item">
                             <i class="fas fa-leaf"></i>
                             <span>Grünkohl</span>
-                            <div class="availability">Nov - Feb</div>
+                            <p class="availability">Nov - Feb</p>
                         </div>
                         <div class="product-item">
                             <i class="fas fa-seedling"></i>
                             <span>Rosenkohl</span>
-                            <div class="availability">Okt - März</div>
+                            <p class="availability">Okt - März</p>
                         </div>
                         <div class="product-item">
                             <i class="fas fa-apple-alt"></i>
                             <span>Winteräpfel</span>
-                            <div class="availability">Okt - März</div>
+                            <p class="availability">Okt - März</p>
                         </div>
                     </div>
                 </div>
                 
-                <div class="season-content" id="spring">
+                <div class="season-content" data-season="spring">
                     <div class="product-grid">
                         <div class="product-item">
                             <i class="fas fa-seedling"></i>
                             <span>Spargel</span>
-                            <div class="availability">April - Juni</div>
+                            <p class="availability">April - Juni</p>
                         </div>
                         <div class="product-item">
                             <i class="fas fa-leaf"></i>
                             <span>Bärlauch</span>
-                            <div class="availability">März - Mai</div>
+                            <p class="availability">März - Mai</p>
                         </div>
                         <div class="product-item">
                             <i class="fas fa-carrot"></i>
                             <span>Radieschen</span>
-                            <div class="availability">April - Mai</div>
+                            <p class="availability">April - Mai</p>
                         </div>
                         <div class="product-item">
                             <i class="fas fa-leaf"></i>
                             <span>Rucola</span>
-                            <div class="availability">März - Juni</div>
+                            <p class="availability">März - Juni</p>
                         </div>
                     </div>
                 </div>
                 
-                <div class="season-content" id="summer">
+                <div class="season-content" data-season="summer">
                     <div class="product-grid">
                         <div class="product-item">
                             <i class="fas fa-apple-alt"></i>
                             <span>Erdbeeren</span>
-                            <div class="availability">Mai - Aug</div>
+                            <p class="availability">Mai - Aug</p>
                         </div>
                         <div class="product-item">
                             <i class="fas fa-carrot"></i>
                             <span>Tomaten</span>
-                            <div class="availability">Juli - Sept</div>
+                            <p class="availability">Juli - Sept</p>
                         </div>
                         <div class="product-item">
                             <i class="fas fa-leaf"></i>
                             <span>Zucchini</span>
-                            <div class="availability">Juni - Sept</div>
+                            <p class="availability">Juni - Sept</p>
                         </div>
                         <div class="product-item">
                             <i class="fas fa-seedling"></i>
                             <span>Paprika</span>
-                            <div class="availability">Juli - Okt</div>
+                            <p class="availability">Juli - Okt</p>
                         </div>
                     </div>
                 </div>
                 
-                <div class="season-content" id="autumn">
+                <div class="season-content" data-season="autumn">
                     <div class="product-grid">
                         <div class="product-item">
                             <i class="fas fa-apple-alt"></i>
                             <span>Kürbis</span>
-                            <div class="availability">Sept - Nov</div>
+                            <p class="availability">Sept - Nov</p>
                         </div>
                         <div class="product-item">
                             <i class="fas fa-carrot"></i>
                             <span>Pilze</span>
-                            <div class="availability">Sept - Nov</div>
+                            <p class="availability">Sept - Nov</p>
                         </div>
                         <div class="product-item">
                             <i class="fas fa-leaf"></i>
                             <span>Birnen</span>
-                            <div class="availability">Aug - Okt</div>
+                            <p class="availability">Aug - Okt</p>
                         </div>
                         <div class="product-item">
                             <i class="fas fa-seedling"></i>
                             <span>Rote Beete</span>
-                            <div class="availability">Sept - Dez</div>
+                            <p class="availability">Sept - Dez</p>
                         </div>
                     </div>
                 </div>
@@ -422,8 +410,8 @@
             </div>
         </section>
 
-        <section id="booking" class="booking-section" data-aos="fade-up">
-            <h2>Termin vereinbaren</h2>
+        <section id="contact" class="contact-section" data-aos="fade-up">
+            <h2>Kontakt & Buchung</h2>
             <div class="booking-container">
                 <div class="booking-options">
                     <div class="booking-type active" data-type="private-dining">
@@ -439,96 +427,103 @@
                         <span>Beratung</span>
                     </div>
                 </div>
-                
-                <div class="booking-calendar">
-                    <!-- Kalender wird per JavaScript geladen -->
-                </div>
 
-                <form class="booking-form">
-                    <div class="form-group">
-                        <input type="text" placeholder="Ihr Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" placeholder="Ihre E-Mail" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" placeholder="Telefon" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea placeholder="Ihre Wünsche und Anmerkungen" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Anfrage senden</button>
-                </form>
-            </div>
-        </section>
-
-        <section id="contact" data-aos="fade-up">
-            <h2>Kontaktieren Sie Mich</h2>
-            <div class="contact-container">
                 <form id="booking-form" class="contact-form" action="https://formspree.io/f/tuerpe.samir@gmail.com" method="POST">
-                    <div class="form-group">
-                        <input type="text" id="name" name="name" placeholder="Ihr Name" required>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Ihr Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Ihre E-Mail" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="phone" name="phone" placeholder="Telefon" required>
+                        </div>
+                        <div class="form-group">
+                            <select id="service-type" name="service-type" required>
+                                <option value="">Art der Anfrage auswählen</option>
+                                <optgroup label="Private Dining">
+                                    <option value="private-dinner">Privates Dinner (2-8 Personen)</option>
+                                    <option value="family-celebration">Familienfeier (bis 20 Personen)</option>
+                                    <option value="tasting-menu">Degustationsmenü</option>
+                                </optgroup>
+                                <optgroup label="Events & Catering">
+                                    <option value="business-event">Geschäftliches Event</option>
+                                    <option value="wedding">Hochzeit</option>
+                                    <option value="special-event">Besondere Anlässe</option>
+                                </optgroup>
+                                <optgroup label="Koch-Coaching & Workshops">
+                                    <option value="individual-coaching">Individuelles Koch-Coaching</option>
+                                    <option value="group-workshop">Gruppen-Workshop</option>
+                                    <option value="sustainable-cooking">Nachhaltige Küchentechniken</option>
+                                    <option value="seasonal-cooking">Saisonales Kochen</option>
+                                    <option value="team-building">Team Building</option>
+                                </optgroup>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input type="email" id="email" name="email" placeholder="Ihre E-Mail" required>
+
+                    <div class="form-details">
+                        <div class="form-group">
+                            <select id="guests" name="guests" required>
+                                <option value="">Anzahl der Personen</option>
+                                <option value="2-4">2-4 Personen</option>
+                                <option value="5-8">5-8 Personen</option>
+                                <option value="9-15">9-15 Personen</option>
+                                <option value="16-30">16-30 Personen</option>
+                                <option value="30+">Mehr als 30 Personen</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select id="dietary" name="dietary" multiple>
+                                <option value="vegetarian">Vegetarisch</option>
+                                <option value="vegan">Vegan</option>
+                                <option value="gluten-free">Glutenfrei</option>
+                                <option value="lactose-free">Laktosefrei</option>
+                                <option value="allergies">Allergien/Unverträglichkeiten</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <select id="service-type" name="service-type" required>
-                            <option value="">Art der Anfrage auswählen</option>
-                            <optgroup label="Private Dining">
-                                <option value="private-dinner">Privates Dinner (2-8 Personen)</option>
-                                <option value="family-celebration">Familienfeier (bis 20 Personen)</option>
-                                <option value="tasting-menu">Degustationsmenü</option>
-                            </optgroup>
-                            <optgroup label="Events & Catering">
-                                <option value="business-event">Geschäftliches Event</option>
-                                <option value="wedding">Hochzeit</option>
-                                <option value="special-event">Besondere Anlässe</option>
-                            </optgroup>
-                            <optgroup label="Kochkurse & Workshops">
-                                <option value="seasonal-cooking">Saisonales Kochen</option>
-                                <option value="sustainable-kitchen">Nachhaltige Küche</option>
-                                <option value="vegan-workshop">Vegane Küche</option>
-                                <option value="team-building">Team Building</option>
-                            </optgroup>
-                            <optgroup label="Beratung">
-                                <option value="nutrition">Ernährungsberatung</option>
-                                <option value="menu-planning">Menüplanung</option>
-                                <option value="kitchen-optimization">Küchenoptimierung</option>
-                            </optgroup>
-                        </select>
+
+                    <div class="booking-calendar">
+                        <!-- Kalender wird per JavaScript geladen -->
                     </div>
-                    <div class="form-group">
-                        <select id="guests" name="guests">
-                            <option value="">Anzahl der Personen</option>
-                            <option value="2-4">2-4 Personen</option>
-                            <option value="5-8">5-8 Personen</option>
-                            <option value="9-15">9-15 Personen</option>
-                            <option value="16-30">16-30 Personen</option>
-                            <option value="30+">Mehr als 30 Personen</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <select id="dietary" name="dietary" multiple>
-                            <option value="vegetarian">Vegetarisch</option>
-                            <option value="vegan">Vegan</option>
-                            <option value="gluten-free">Glutenfrei</option>
-                            <option value="lactose-free">Laktosefrei</option>
-                            <option value="allergies">Allergien/Unverträglichkeiten</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="date" name="preferred-date" placeholder="Wunschtermin" class="datepicker">
-                    </div>
+
                     <div class="form-group">
                         <textarea id="message" name="message" placeholder="Ihre Wünsche und Anmerkungen (z.B. spezielle Vorlieben, Allergien, besondere Anlässe)" required></textarea>
                     </div>
+
                     <div class="form-group privacy-check">
                         <input type="checkbox" id="privacy" name="privacy" required>
                         <label for="privacy">Ich stimme der Verarbeitung meiner Daten gemäß der Datenschutzerklärung zu</label>
                     </div>
+
                     <button type="submit" class="submit-btn">Anfrage senden</button>
                 </form>
+
+                <div class="contact-info">
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <div class="info-content">
+                            <h3>Telefon</h3>
+                            <p>+49 (0) XXX XXXXXXX</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div class="info-content">
+                            <h3>E-Mail</h3>
+                            <p>tuerpe.samir@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <div class="info-content">
+                            <h3>Erreichbarkeit</h3>
+                            <p>Mo-Fr: 09:00 - 18:00 Uhr</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -555,50 +550,37 @@
             </div>
         </div>
 
-        <section id="services" class="services-section" data-aos="fade-up">
+        <section id="services" class="services-section">
             <h2>Individuelle Serviceleistungen</h2>
             <div class="services-grid">
                 <div class="service-card">
                     <i class="fas fa-utensils"></i>
                     <h3>Private Dining</h3>
-                    <p>Exklusives Dinner-Erlebnis in Ihrem Zuhause mit saisonalen Menüs und nachhaltigen Zutaten.</p>
+                    <p>Exklusives Dinner-Erlebnis in Ihrem Zuhause mit persönlich abgestimmtem Menü.</p>
                     <ul class="service-features">
-                        <li><i class="fas fa-check"></i> Persönliche Menüplanung</li>
-                        <li><i class="fas fa-check"></i> 3-7 Gänge nach Wunsch</li>
-                        <li><i class="fas fa-check"></i> Weinbegleitung optional</li>
+                        <li><i class="fas fa-check"></i>Individuelles Menü</li>
+                        <li><i class="fas fa-check"></i>Weinbegleitung</li>
+                        <li><i class="fas fa-check"></i>Persönlicher Service</li>
                     </ul>
                 </div>
-                
                 <div class="service-card">
                     <i class="fas fa-glass-cheers"></i>
                     <h3>Events & Catering</h3>
-                    <p>Nachhaltige Eventkonzepte für besondere Anlässe, von intimen Feiern bis Firmenevent.</p>
+                    <p>Professionelles Catering für Ihre Veranstaltung mit nachhaltigen Konzepten.</p>
                     <ul class="service-features">
-                        <li><i class="fas fa-check"></i> Maßgeschneiderte Konzepte</li>
-                        <li><i class="fas fa-check"></i> Live-Cooking Stationen</li>
-                        <li><i class="fas fa-check"></i> Komplette Organisation</li>
+                        <li><i class="fas fa-check"></i>Maßgeschneiderte Menüs</li>
+                        <li><i class="fas fa-check"></i>Komplette Organisation</li>
+                        <li><i class="fas fa-check"></i>Nachhaltiges Konzept</li>
                     </ul>
                 </div>
-                
                 <div class="service-card">
                     <i class="fas fa-chalkboard-teacher"></i>
-                    <h3>Kochkurse & Workshops</h3>
-                    <p>Lernen Sie die Grundlagen nachhaltiger Küche und saisonaler Zubereitung.</p>
+                    <h3>Koch-Coaching</h3>
+                    <p>Lernen Sie die Kunst der nachhaltigen Küche in individuellen oder Gruppen-Workshops.</p>
                     <ul class="service-features">
-                        <li><i class="fas fa-check"></i> Kleine Gruppengrößen</li>
-                        <li><i class="fas fa-check"></i> Praxisorientiert</li>
-                        <li><i class="fas fa-check"></i> Inkl. Rezeptmappe</li>
-                    </ul>
-                </div>
-                
-                <div class="service-card">
-                    <i class="fas fa-leaf"></i>
-                    <h3>Ernährungsberatung</h3>
-                    <p>Wissenschaftlich fundierte Beratung für eine nachhaltige und gesunde Ernährung.</p>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check"></i> Individuelle Analyse</li>
-                        <li><i class="fas fa-check"></i> Ernährungspläne</li>
-                        <li><i class="fas fa-check"></i> Nachhaltigkeitscheck</li>
+                        <li><i class="fas fa-check"></i>Praktische Techniken</li>
+                        <li><i class="fas fa-check"></i>Saisonale Rezepte</li>
+                        <li><i class="fas fa-check"></i>Nachhaltige Methoden</li>
                     </ul>
                 </div>
             </div>

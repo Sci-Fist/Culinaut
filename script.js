@@ -216,31 +216,123 @@ window.addEventListener('scroll', () => {
 });
 
 // Initialize Swiper for menu slider
-const menuSlider = new Swiper('.menu-slider', {
-    slidesPerView: 1,
-    spaceBetween: 30,
-    loop: true,
+const menuSwiper = new Swiper('.menu-slider', {
+    effect: 'coverflow',
+    grabCursor: true,
     centeredSlides: true,
-    autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
+    slidesPerView: 'auto',
+    coverflowEffect: {
+        rotate: 0,
+        stretch: 0,
+        depth: 100,
+        modifier: 2,
+        slideShadows: false,
     },
     pagination: {
         el: '.swiper-pagination',
-        clickable: true,
+        dynamicBullets: true,
     },
     navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
     },
-    breakpoints: {
-        768: {
-            slidesPerView: 2,
+    speed: 800,
+    on: {
+        init: function() {
+            document.querySelectorAll('.swiper-slide').forEach(slide => {
+                slide.style.opacity = '0.4';
+            });
+            const activeSlide = document.querySelector('.swiper-slide-active');
+            if (activeSlide) {
+                activeSlide.style.opacity = '1';
+            }
         },
-        1024: {
-            slidesPerView: 3,
+        slideChange: function() {
+            document.querySelectorAll('.swiper-slide').forEach(slide => {
+                slide.style.opacity = '0.4';
+                slide.style.transform = 'scale(0.8)';
+            });
+            const activeSlide = document.querySelector('.swiper-slide-active');
+            if (activeSlide) {
+                activeSlide.style.opacity = '1';
+                activeSlide.style.transform = 'scale(1)';
+            }
         }
     }
+});
+
+// Seasonal Calendar functionality
+function getCurrentSeason() {
+    const month = new Date().getMonth();
+    if (month >= 2 && month <= 4) return 'spring';
+    if (month >= 5 && month <= 7) return 'summer';
+    if (month >= 8 && month <= 10) return 'autumn';
+    return 'winter';
+}
+
+function initSeasonalCalendar() {
+    const currentSeason = getCurrentSeason();
+    const buttons = document.querySelectorAll('.season-btn');
+    const contents = document.querySelectorAll('.season-content');
+
+    // Set initial active state
+    buttons.forEach(btn => {
+        if (btn.dataset.season === currentSeason) {
+            btn.classList.add('active');
+        }
+    });
+
+    contents.forEach(content => {
+        if (content.dataset.season === currentSeason) {
+            content.classList.add('active');
+            animateProducts(content);
+        }
+    });
+
+    // Add click handlers
+    buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const season = btn.dataset.season;
+            
+            // Update buttons
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            // Update content with fade effect
+            contents.forEach(content => {
+                if (content.classList.contains('active')) {
+                    content.style.opacity = '0';
+                    setTimeout(() => {
+                        content.classList.remove('active');
+                        const newContent = document.querySelector(`.season-content[data-season="${season}"]`);
+                        if (newContent) {
+                            newContent.classList.add('active');
+                            newContent.style.opacity = '1';
+                            animateProducts(newContent);
+                        }
+                    }, 300);
+                }
+            });
+        });
+    });
+}
+
+function animateProducts(container) {
+    const products = container.querySelectorAll('.product-item');
+    products.forEach((product, index) => {
+        product.style.opacity = '0';
+        product.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+            product.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            product.style.opacity = '1';
+            product.style.transform = 'translateY(0)';
+        }, index * 100);
+    });
+}
+
+// Initialize everything when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    initSeasonalCalendar();
 });
 
 // Initialize Leaflet map for sustainability section
@@ -268,7 +360,7 @@ producers.forEach(producer => {
 const bookingTypes = document.querySelectorAll('.booking-type');
 const bookingCalendar = document.querySelector('.booking-calendar');
 
-// Menu Modal Functionality
+// Menu Modal Functionality with enhanced animations
 const menuModal = document.querySelector('.menu-modal');
 const closeModal = document.querySelector('.close-modal');
 const menuCards = document.querySelectorAll('.menu-card');
@@ -306,46 +398,92 @@ menuCards.forEach(card => {
         const title = card.querySelector('h3').textContent;
         const imgSrc = card.querySelector('img').src;
         
-        // Populate modal
-        menuModal.querySelector('.modal-image img').src = imgSrc;
-        menuModal.querySelector('h2').textContent = title;
+        // Populate modal with smooth transitions
+        const modalImage = menuModal.querySelector('.modal-image img');
+        const modalTitle = menuModal.querySelector('h2');
         
-        // Get recipe data
+        modalImage.style.opacity = '0';
+        modalTitle.style.opacity = '0';
+        
+        setTimeout(() => {
+            modalImage.src = imgSrc;
+            modalTitle.textContent = title;
+            
+            modalImage.style.opacity = '1';
+            modalTitle.style.opacity = '1';
+        }, 300);
+        
+        // Get and populate recipe data
         const recipe = recipeData[title] || {
             ingredients: ['Wird geladen...'],
             preparation: ['Wird geladen...'],
             sustainability: [{ icon: 'fa-leaf', text: 'Wird geladen...' }]
         };
         
-        // Populate ingredients
-        const ingredientsList = menuModal.querySelector('.ingredients ul');
-        ingredientsList.innerHTML = recipe.ingredients
-            .map(ingredient => `<li>${ingredient}</li>`)
-            .join('');
+        populateRecipeDetails(recipe);
         
-        // Populate preparation steps
-        const preparationList = menuModal.querySelector('.preparation ol');
-        preparationList.innerHTML = recipe.preparation
-            .map(step => `<li>${step}</li>`)
-            .join('');
-        
-        // Populate sustainability info
-        const ecoPoints = menuModal.querySelector('.eco-points');
-        ecoPoints.innerHTML = recipe.sustainability
-            .map(point => `
-                <li>
-                    <i class="fas ${point.icon}"></i>
-                    <span>${point.text}</span>
-                </li>
-            `)
-            .join('');
-        
-        // Show modal with animation
+        // Show modal with enhanced animation
         menuModal.classList.add('active');
         document.body.style.overflow = 'hidden';
     });
 });
 
+// Populate recipe details with animations
+const populateRecipeDetails = (recipe) => {
+    const ingredientsList = menuModal.querySelector('.ingredients ul');
+    const preparationList = menuModal.querySelector('.preparation ol');
+    const ecoPoints = menuModal.querySelector('.eco-points');
+    
+    // Clear existing content
+    ingredientsList.innerHTML = '';
+    preparationList.innerHTML = '';
+    ecoPoints.innerHTML = '';
+    
+    // Populate with animation
+    recipe.ingredients.forEach((ingredient, index) => {
+        const li = document.createElement('li');
+        li.textContent = ingredient;
+        li.style.opacity = '0';
+        li.style.transform = 'translateX(-20px)';
+        ingredientsList.appendChild(li);
+        
+        setTimeout(() => {
+            li.style.opacity = '1';
+            li.style.transform = 'translateX(0)';
+        }, index * 100);
+    });
+    
+    recipe.preparation.forEach((step, index) => {
+        const li = document.createElement('li');
+        li.textContent = step;
+        li.style.opacity = '0';
+        li.style.transform = 'translateX(-20px)';
+        preparationList.appendChild(li);
+        
+        setTimeout(() => {
+            li.style.opacity = '1';
+            li.style.transform = 'translateX(0)';
+        }, index * 100);
+    });
+    
+    recipe.sustainability.forEach((point, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <i class="fas ${point.icon}"></i>
+            <span>${point.text}</span>
+        `;
+        li.style.opacity = '0';
+        li.style.transform = 'translateX(-20px)';
+        ecoPoints.appendChild(li);
+        
+        setTimeout(() => {
+            li.style.opacity = '1';
+            li.style.transform = 'translateX(0)';
+        }, index * 100);
+    });
+};
+
+// Close modal with animation
 closeModal.addEventListener('click', () => {
     menuModal.classList.remove('active');
     document.body.style.overflow = '';
@@ -572,11 +710,11 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Seasonal Calendar Functionality
+// Enhanced Seasonal Calendar
 const seasonBtns = document.querySelectorAll('.season-btn');
 const seasonContents = document.querySelectorAll('.season-content');
 
-// Automatically set current season
+// Get current season based on month
 const getCurrentSeason = () => {
     const month = new Date().getMonth();
     if (month >= 2 && month <= 4) return 'spring';
@@ -585,43 +723,69 @@ const getCurrentSeason = () => {
     return 'winter';
 };
 
-// Set initial active season
-const currentSeason = getCurrentSeason();
-document.querySelector(`[data-season="${currentSeason}"]`).classList.add('active');
-document.getElementById(currentSeason).classList.add('active');
-
-// Season switching functionality
-seasonBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
+// Set initial active season with animation
+const initializeSeasonalCalendar = () => {
+    const currentSeason = getCurrentSeason();
+    const activeBtn = document.querySelector(`[data-season="${currentSeason}"]`);
+    const activeContent = document.getElementById(currentSeason);
+    
+    if (activeBtn && activeContent) {
         // Remove active classes
-        seasonBtns.forEach(b => b.classList.remove('active'));
-        seasonContents.forEach(c => c.classList.remove('active'));
+        seasonBtns.forEach(btn => btn.classList.remove('active'));
+        seasonContents.forEach(content => content.classList.remove('active'));
         
-        // Add active class to clicked button and corresponding content
-        btn.classList.add('active');
-        const season = btn.dataset.season;
-        document.getElementById(season).classList.add('active');
+        // Add active classes
+        activeBtn.classList.add('active');
+        activeContent.classList.add('active');
         
         // Animate products
-        const products = document.querySelectorAll(`#${season} .product-item`);
-        products.forEach((product, index) => {
-            product.style.opacity = '0';
-            product.style.transform = 'translateY(20px)';
+        animateProducts(activeContent);
+    }
+};
+
+// Animate products with stagger effect
+const animateProducts = (container) => {
+    const products = container.querySelectorAll('.product-item');
+    products.forEach((product, index) => {
+        product.style.opacity = '0';
+        product.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            product.style.opacity = '1';
+            product.style.transform = 'translateY(0)';
+        }, index * 100);
+    });
+};
+
+// Season switching with enhanced animations
+seasonBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const season = btn.dataset.season;
+        const content = document.getElementById(season);
+        
+        if (content) {
+            // Remove active classes with fade out
+            seasonContents.forEach(c => {
+                if (c.classList.contains('active')) {
+                    c.style.opacity = '0';
+                    setTimeout(() => {
+                        c.classList.remove('active');
+                        c.style.opacity = '';
+                    }, 300);
+                }
+            });
+            
+            seasonBtns.forEach(b => b.classList.remove('active'));
+            
+            // Add active classes with animation
             setTimeout(() => {
-                product.style.opacity = '1';
-                product.style.transform = 'translateY(0)';
-            }, index * 100);
-        });
+                btn.classList.add('active');
+                content.classList.add('active');
+                animateProducts(content);
+            }, 300);
+        }
     });
 });
 
-// Animate products on initial load
-const currentProducts = document.querySelectorAll(`#${currentSeason} .product-item`);
-currentProducts.forEach((product, index) => {
-    product.style.opacity = '0';
-    product.style.transform = 'translateY(20px)';
-    setTimeout(() => {
-        product.style.opacity = '1';
-        product.style.transform = 'translateY(0)';
-    }, index * 100);
-}); 
+// Initialize seasonal calendar
+document.addEventListener('DOMContentLoaded', initializeSeasonalCalendar); 
