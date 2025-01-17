@@ -1,0 +1,91 @@
+<section id="nachhaltigkeit" class="sustainability-section">
+    <div class="container">
+        <h2 class="section-title" data-aos="fade-up">Nachhaltiges Konzept</h2>
+        
+        <div class="sustainability-grid">
+            <!-- Local Partners Card -->
+            <div class="sustainability-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="card-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3>Unsere lokalen Partner</h3>
+                <div class="partner-map">
+                    <div id="localPartnersMap"></div>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span class="stat-value">12 km</span>
+                            <span class="stat-label">Durchschnittliche Transportwege</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="partner-details-btn" onclick="showPartnerDetails()">
+                    Partner kennenlernen
+                </button>
+            </div>
+
+            <!-- Waste Reduction Card -->
+            <div class="sustainability-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="card-icon">
+                    <i class="fas fa-recycle"></i>
+                </div>
+                <h3>Abfallreduzierung</h3>
+                <div class="circular-progress">
+                    <svg viewBox="0 0 36 36" class="circular-chart">
+                        <path d="M18 2.0845
+                            a 15.9155 15.9155 0 0 1 0 31.831
+                            a 15.9155 15.9155 0 0 1 0 -31.831"
+                            fill="none"
+                            stroke="#eee"
+                            stroke-width="2"
+                            stroke-dasharray="95, 100"/>
+                    </svg>
+                    <div class="percentage">95%</div>
+                </div>
+                <p>Verwertung durch innovative Konzepte</p>
+            </div>
+
+            <!-- Organic Content Card -->
+            <div class="sustainability-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="card-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h3>Bio-Anteil</h3>
+                <div class="circular-progress">
+                    <svg viewBox="0 0 36 36" class="circular-chart">
+                        <path d="M18 2.0845
+                            a 15.9155 15.9155 0 0 1 0 31.831
+                            a 15.9155 15.9155 0 0 1 0 -31.831"
+                            fill="none"
+                            stroke="#eee"
+                            stroke-width="2"
+                            stroke-dasharray="100, 100"/>
+                    </svg>
+                    <div class="percentage">100%</div>
+                </div>
+                <p>Zertifizierte Bio-Produkte</p>
+            </div>
+        </div>
+
+        <!-- Seasonal Calendar Integration -->
+        <div class="seasonal-calendar-section" data-aos="fade-up">
+            <h3>Saisonkalender</h3>
+            <div class="seasonal-calendar">
+                <div class="season-navigation">
+                    <button class="season-nav prev" aria-label="Vorherige Saison">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="season-buttons">
+                        <button class="season-btn" data-season="spring">Frühling</button>
+                        <button class="season-btn" data-season="summer">Sommer</button>
+                        <button class="season-btn" data-season="autumn">Herbst</button>
+                        <button class="season-btn" data-season="winter">Winter</button>
+                    </div>
+                    <button class="season-nav next" aria-label="Nächste Saison">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="season-content-wrapper"></div>
+            </div>
+        </div>
+    </div>
+</section>
