@@ -44,12 +44,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
-}
-
-.preloader.fade-out {
-    opacity: 0;
-    visibility: hidden;
 }
 
 .loader {
@@ -74,7 +68,7 @@
 
 .loader-text {
     color: var(--text-light);
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Playfair Display', serif;
     font-size: 1.5rem;
     letter-spacing: 3px;
     animation: pulse 1.5s ease-in-out infinite;

@@ -1,6 +1,5 @@
-// Wait for all content to load before removing preloader
-window.addEventListener('load', () => {
-    // Initialize AOS
+// Initialize AOS and remove preloader immediately
+document.addEventListener('DOMContentLoaded', () => {
     AOS.init({
         duration: 800,
         easing: 'ease-out',
@@ -8,24 +7,10 @@ window.addEventListener('load', () => {
         offset: 50
     });
 
-    // Hide preloader after a small delay to ensure smooth transition
-    setTimeout(() => {
-        const preloader = document.querySelector('.preloader');
-        preloader.classList.add('fade-out');
-    }, 500);
-
-    // Check if URL has a hash and scroll to section after small delay
-    if (window.location.hash) {
-        setTimeout(() => {
-            const section = document.querySelector(window.location.hash);
-            if (section) {
-                const headerHeight = document.querySelector('header').offsetHeight;
-                window.scrollTo({
-                    top: section.offsetTop - headerHeight,
-                    behavior: 'smooth'
-                });
-            }
-        }, 100);
+    // Remove preloader immediately
+    const preloader = document.querySelector('.preloader');
+    if (preloader) {
+        preloader.style.display = 'none';
     }
 });
 
