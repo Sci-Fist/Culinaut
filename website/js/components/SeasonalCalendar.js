@@ -316,3 +316,90 @@ class SeasonalCalendar {
         });
 
         // Close on outside click
+        modal.addEventListener('click', async (e) => {
+            if (e.target === modal) {
+                await utils.animation.fadeOut(modal);
+                modal.remove();
+            }
+        });
+
+        // Setup recipe buttons
+        modal.querySelectorAll('.recipe-card button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const recipeId = parseInt(button.dataset.recipeId);
+                this.showRecipeDetail(recipeId);
+            });
+        });
+
+        // Prevent modal content clicks from closing modal
+        modal.querySelector('.modal-content').addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
+        // Handle keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                utils.animation.fadeOut(modal).then(() => modal.remove());
+            }
+        });
+    }
+
+    // Add missing methods referenced in the code
+    async showRecipeDetail(recipeId) {
+        const recipe = this.state.recipes.find(r => r.id === recipeId);
+        if (!recipe) return;
+
+        const recipeModal = utils.dom.create('div', { class: 'recipe-modal' });
+        recipeModal.innerHTML = `
+            <div class="modal-content">
+                <button class="close-modal" aria-label="Schließen">&times;</button>
+                <div class="recipe-detail">
+                    <img src="${recipe.image}" alt="${recipe.name}" class="recipe-image">
+                    <h2>${recipe.name}</h2>
+                    <div class="recipe-info">
+                        <span>Zubereitungszeit: ${recipe.prepTime} Min.</span>
+                        <span>Schwierigkeit: ${recipe.difficulty}</span>
+                        <span>Portionen: ${recipe.servings}</span>
+                    </div>
+                    <div class="recipe-ingredients">
+                        <h3>Zutaten</h3>
+                        <ul>
+                            ${recipe.ingredients.map(ing => `
+                                <li>${ing.amount} ${ing.unit} ${ing.name}</li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                    <div class="recipe-steps">
+                        <h3>Zubereitung</h3>
+                        <ol>
+                            ${recipe.steps.map(step => `
+                                <li>${step}</li>
+                            `).join('')}
+                        </ol>
+                    </div>
+                    <div class="recipe-tips">
+                        <h3>Tipps</h3>
+                        <p>${recipe.tips}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(recipeModal);
+        await utils.animation.fadeIn(recipeModal);
+        this.setupModalInteractions(recipeModal);
+    }
+
+    showError(message) {
+        const errorElement = utils.dom.create('div', { 
+            class: 'error-message',
+            'aria-live': 'polite'
+        }, [message]);
+        
+        utils.dom.select('.seasonal-calendar').prepend(errorElement);
+        setTimeout(() => errorElement.remove(), 5000);
+    }
+}
+
+export default new SeasonalCalendar();
