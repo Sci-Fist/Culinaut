@@ -183,4 +183,8 @@
     transition: transform 0.3s ease;
 }
 
-.close-modal:hover
+
+.close-modal:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
