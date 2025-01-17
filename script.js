@@ -1,5 +1,6 @@
-// Initialize AOS and remove preloader immediately
+// Initialize AOS and handle preloader
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize AOS immediately
     AOS.init({
         duration: 800,
         easing: 'ease-out',
@@ -7,10 +8,17 @@ document.addEventListener('DOMContentLoaded', () => {
         offset: 50
     });
 
-    // Remove preloader immediately
+    // Handle preloader
     const preloader = document.querySelector('.preloader');
     if (preloader) {
-        preloader.style.display = 'none';
+        // Add fade-out class after a short delay
+        setTimeout(() => {
+            preloader.classList.add('fade-out');
+            // Remove preloader from DOM after fade animation
+            setTimeout(() => {
+                preloader.remove();
+            }, 800);
+        }, 500);
     }
 });
 
