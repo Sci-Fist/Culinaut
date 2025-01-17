@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css">
+    <link rel="stylesheet" href="css/language-selector.css">
 </head>
 <body>
     <!-- Preloader -->
@@ -585,6 +586,17 @@
                 </div>
             </div>
         </section>
+
+        <div class="language-selector">
+            <button class="language-btn active" onclick="setLanguage('de')">
+                <img src="assets/flags/de.svg" alt="Deutsch">
+                DE
+            </button>
+            <button class="language-btn" onclick="setLanguage('en')">
+                <img src="assets/flags/en.svg" alt="English">
+                EN
+            </button>
+        </div>
     </main>
 
     <footer>
