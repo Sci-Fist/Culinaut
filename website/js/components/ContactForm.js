@@ -172,4 +172,86 @@ class ContactForm {
     showFieldError(fieldGroup, message) {
         let errorElement = fieldGroup.querySelector('.field-error');
         if (!errorElement) {
-            errorElement = utils.dom.create('div
+            errorElement = utils.dom.create('div', { 
+                class: 'field-error',
+                'aria-live': 'polite'
+            });
+            fieldGroup.appendChild(errorElement);
+        }
+        errorElement.textContent = message;
+        fieldGroup.classList.add('has-error');
+    }
+
+    clearFieldError(fieldGroup) {
+        const errorElement = fieldGroup.querySelector('.field-error');
+        if (errorElement) {
+            errorElement.remove();
+        }
+        fieldGroup.classList.remove('has-error');
+    }
+
+    async submitForm(form) {
+        const submitButton = form.querySelector('.submit-btn');
+        const originalText = submitButton.textContent;
+        
+        try {
+            submitButton.disabled = true;
+            submitButton.textContent = 'Wird gesendet...';
+
+            const formData = new FormData(form);
+            const data = {
+                type: this.state.formType,
+                data: Object.fromEntries(formData.entries()),
+                timestamp: new Date().toISOString()
+            };
+
+            const response = await fetch(`${config.api.baseUrl}/contact`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (!response.ok) throw new Error('Übermittlung fehlgeschlagen');
+
+            this.showSuccess('Ihre Anfrage wurde erfolgreich gesendet!');
+            form.reset();
+        } catch (error) {
+            this.showError('Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.');
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = originalText;
+        }
+    }
+
+    showSuccess(message) {
+        const notification = utils.dom.create('div', {
+            class: 'form-notification success',
+            'aria-live': 'polite'
+        }, [message]);
+        
+        this.showNotification(notification);
+    }
+
+    showError(message) {
+        const notification = utils.dom.create('div', {
+            class: 'form-notification error',
+            'aria-live': 'polite'
+        }, [message]);
+        
+        this.showNotification(notification);
+    }
+
+    showNotification(notification) {
+        const container = utils.dom.select('.contact-form-container');
+        container.insertBefore(notification, container.firstChild);
+        
+        setTimeout(() => {
+            notification.classList.add('fade-out');
+            setTimeout(() => notification.remove(), 300);
+        }, 5000);
+    }
+}
+
+export default new ContactForm();
