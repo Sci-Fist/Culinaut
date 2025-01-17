@@ -1,0 +1,22 @@
+This folder contains SVG icons for seasonal products.
+Required icons:
+- asparagus.svg
+- wild-garlic.svg
+- rhubarb.svg
+- radish.svg
+- spring-onion.svg
+- tomato.svg
+- zucchini.svg
+- berries.svg
+- cherry.svg
+- chanterelle.svg
+- pumpkin.svg
+- apple.svg
+- mushroom.svg
+- pear.svg
+- grapes.svg
+- kale.svg
+- brussels-sprouts.svg
+- parsnip.svg
+- chicory.svg
+- lamb-lettuce.svg
