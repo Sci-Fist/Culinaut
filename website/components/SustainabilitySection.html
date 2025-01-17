@@ -1,0 +1,30 @@
+<!-- website/components/SustainabilitySection.html -->
+<div class="season-buttons">
+    <button class="season-btn" data-season="Spring">Spring</button>
+    <button class="season-btn active" data-season="Summer">Summer</button>
+    <!-- ... Add more season buttons as needed -->
+</div>
+
+<div class="season-contents">
+    <div class="season-content Spring" data-season="Spring">
+        <!-- Seasonal content for Spring -->
+    </div>
+    <div class="season-content Summer" data-season="Summer">
+        <!-- Seasonal content for Summer -->
+    </div>
+    <!-- ... Add more seasonal content as needed -->
+</div>
+
+// Create content containers
+let contentHtml = '<div class="season-contents">';
+Object.keys(seasonalProducts).forEach(season => {
+    contentHtml += `
+        <div class="season-content ${season === currentSeason ? 'active' : ''}" data-season="${season}">
+            ${createSeasonalContent(season)}
+        </div>
+    `;
+});
+contentHtml += '</div>';
+
+container.innerHTML = buttonsHtml + contentHtml;
+initSeasonalInteractions();
