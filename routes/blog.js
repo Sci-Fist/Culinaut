@@ -12,4 +12,14 @@ router.get('/blog', async (req, res) => {
     }
 });
 
+router.post('/blog', async (req, res) => {
+    const post = new BlogPost(req.body);
+    try {
+        const newPost = await post.save();
+        res.status(201).json(newPost);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
 module.exports = router;

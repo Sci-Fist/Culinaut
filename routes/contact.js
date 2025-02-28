@@ -4,12 +4,7 @@ const ContactMessage = require('../models/ContactMessage');
 const router = express.Router();
 
 router.post('/contact', async (req, res) => {
-    const message = new ContactMessage({
-        type: req.body.type,
-         req.body.data,
-        timestamp: new Date()
-    });
-
+    const message = new ContactMessage(req.body);
     try {
         const newMessage = await message.save();
         res.status(201).json(newMessage);

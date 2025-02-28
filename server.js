@@ -11,7 +11,7 @@ const port = process.env.PORT || 3001;
 
 // Middleware
 app.use(bodyParser.json());
-app.use(express.static('public')); // Serve static files from 'public' directory
+app.use(express.static('public'));
 
 // Routes
 app.use('/api', blogRoutes);
@@ -29,4 +29,3 @@ mongoose.connect('mongodb://localhost:27017/restaurantdb', {
     app.listen(port, () => console.log(`Server listening on port ${port}`));
 })
 .catch(error => console.error('MongoDB connection error:', error));
-
