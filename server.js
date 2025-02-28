@@ -5,11 +5,13 @@ const blogRoutes = require('./routes/blog');
 const menuRoutes = require('./routes/menu');
 const seasonalRoutes = require('./routes/seasonal');
 const contactRoutes = require('./routes/contact');
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 3001;
 
 // Middleware
+app.use(cors()); // Enable CORS for development
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
