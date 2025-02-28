@@ -73,6 +73,35 @@ export const utils = {
         },
         optimize: (src, width, format = 'webp') => {
             return `${config.paths.images}/optimized/${width}/${src}.${format}`;
+        },
+        // Lazy loading implementation
+        lazyLoad: (elements, options = {}) => {
+            const defaultOptions = {
+                root: null,
+                rootMargin: '50px',
+                threshold: 0.1 // When 10% of the image is visible
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.dataset.src) {
+                            utils.image.load(img.dataset.src)
+                                .then(() => {
+                                    img.src = img.dataset.src;
+                                    img.classList.add('loaded'); // For potential fade-in effect
+                                })
+                                .catch(() => {
+                                    img.src = '/assets/images/fallback-dish.jpg'; // Or your fallback image
+                                });
+                            observer.unobserve(img); // Stop observing the image
+                        }
+                    }
+                });
+            }, { ...defaultOptions, ...options });
+
+            elements.forEach(element => observer.observe(element));
         }
     },
 
