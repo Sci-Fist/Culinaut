@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const contactMessageSchema = new mongoose.Schema({
     type: { type: String, required: true },
-     { type: Object, required: true },
+     { type: mongoose.Schema.Types.Mixed, required: true },
     timestamp: { type: Date, required: true, default: Date.now }
 });
 
