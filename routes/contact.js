@@ -6,7 +6,7 @@ const router = express.Router();
 router.post('/', async (req, res) => {
     const message = new ContactMessage({
         type: req.body.type,
-         req.body.data,
+        data: req.body.data,
         timestamp: req.body.timestamp
     });
 
