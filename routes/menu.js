@@ -3,7 +3,7 @@ const MenuItem = require('../models/MenuItem');
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/menu', async (req, res) => {
     try {
         const items = await MenuItem.find();
         res.json(items);
@@ -11,7 +11,5 @@ router.get('/', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
-
-// Add other routes for menu items as needed
 
 module.exports = router;

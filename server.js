@@ -14,10 +14,10 @@ app.use(bodyParser.json());
 app.use(express.static('public')); // Serve static files from 'public' directory
 
 // Routes
-app.use('/api/blog', blogRoutes);
-app.use('/api/menu', menuRoutes);
-app.use('/api/seasonal', seasonalRoutes);
-app.use('/api/contact', contactRoutes);
+app.use('/api', blogRoutes);
+app.use('/api', menuRoutes);
+app.use('/api', seasonalRoutes);
+app.use('/api', contactRoutes);
 
 // Database connection
 mongoose.connect('mongodb://localhost:27017/restaurantdb', {
@@ -29,3 +29,4 @@ mongoose.connect('mongodb://localhost:27017/restaurantdb', {
     app.listen(port, () => console.log(`Server listening on port ${port}`));
 })
 .catch(error => console.error('MongoDB connection error:', error));
+

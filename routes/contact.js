@@ -3,11 +3,11 @@ const ContactMessage = require('../models/ContactMessage');
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.post('/contact', async (req, res) => {
     const message = new ContactMessage({
         type: req.body.type,
-        data: req.body.data,
-        timestamp: req.body.timestamp
+         req.body.data,
+        timestamp: new Date()
     });
 
     try {
